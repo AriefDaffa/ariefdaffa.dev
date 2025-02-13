@@ -1,19 +1,17 @@
 'use client';
 
-import { motion, useAnimate } from 'motion/react';
 import Image from 'next/image';
+import { motion, useAnimate } from 'motion/react';
+import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
 import Stars from './_components/Stars';
-// import Anime from './_components/Anime';
-// import Switch from './(home)/_components/Switch';
 
 const Page = () => {
+  const { theme } = useTheme();
   const [showMenu, setShowMenu] = useState(false);
   const [scope, animate] = useAnimate();
   const [scope2, animate2] = useAnimate();
-  // const [scope3, animate3] = useAnimate();
-  // const [scope4, animate4] = useAnimate();
 
   const delay = (ms: number) => {
     return new Promise((res) => setTimeout(res, ms));
@@ -25,16 +23,6 @@ const Page = () => {
     await animate(scope.current, { y: -100, opacity: 0, display: 'none' });
     await animate2(scope2.current, { y: 0, opacity: 1 }, { bounce: 0 });
     await delay(500);
-    // await animate4(scope4.current, { width: '100%' }, { bounce: 0 });
-    // await animate4(scope4.current, { x: 0, opacity: 1 }, { bounce: 0 });
-    // await animate3(scope3.current, { y: 0, opacity: 1 }, { bounce: 0 });
-    // await animate3(
-    //   scope3.current,
-    //   { x: 0, opacity: 1, width: '80%' },
-    //   { bounce: 0 }
-    // );
-    // await animate3(scope3.current, { width: '100%', x: 0, opacity: 1 });
-    // await animate3(scope4.current, { y: 0, opacity: 1 });
   };
 
   useEffect(() => {
@@ -58,9 +46,8 @@ const Page = () => {
           initial={{ y: 100, opacity: 0 }}
           className="flex gap-6 relative w-full max-w-screen-lg justify-center items-center flex-col lg:flex-row"
         >
-          {/* <div className="w-1/3 flex justify-end"> */}
           <Image
-            src="/images/logo/logo-dark.png"
+            src={`/images/logo/logo-${theme ?? 'light'}.png`}
             alt=""
             height={220}
             width={220}
