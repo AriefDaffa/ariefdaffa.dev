@@ -10,7 +10,6 @@ const Navigation: FC = () => {
   const pathname = usePathname();
 
   const menuArr = [
-    { path: '/', name: 'Home' },
     { path: '/projects', name: 'Projects' },
     { path: '/blog', name: 'Blog' },
     { path: '/about', name: 'About' },
@@ -27,12 +26,20 @@ const Navigation: FC = () => {
   return (
     <>
       <div className="self-center text-right gap-8 hidden md:flex">
+        <a
+          href={'/'}
+          className={`cursor-pointer hover:text-primary ${
+            pathname === '/' && 'font-bold text-primary'
+          }`}
+        >
+          Home
+        </a>
         {menuArr.map((item, idx) => (
           <a
             href={item.path}
             key={idx}
             className={`cursor-pointer hover:text-primary ${
-              pathname === item.path && 'font-bold text-primary'
+              pathname.includes(item.path) && 'font-bold text-primary'
             }`}
           >
             {item.name}
