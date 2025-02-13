@@ -16,22 +16,22 @@ interface ProjectFilterProps {
 const ProjectFilter: FC<ProjectFilterProps> = ({
   tags,
   selectedTags,
-  // setSelectedTags,
+  setSelectedTags,
   handleSelectTags,
 }) => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
     <div className="flex justify-center gap-4 py-8 flex-wrap relative">
-      {/* <div
+      <div
         className={cn(
           'py-1 px-4 rounded-full cursor-pointer hover:bg-primary hover:text-white',
           selectedTags.length === 0 && 'bg-primary text-white'
         )}
         onClick={() => setSelectedTags('')}
       >
-        All
-      </div> */}
+        Show all
+      </div>
       {tags.map((item, idx) => (
         <div
           key={idx}

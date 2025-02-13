@@ -13,7 +13,7 @@ interface ProjectModalProps {
 const ProjectModal: FC<ProjectModalProps> = ({ selectedProject }) => {
   return (
     <div className="flex flex-col gap-4">
-      <div className="h-[500px] w-full">
+      <div className="min-h-[500px] w-full">
         <Image
           src={selectedProject?.imageSrc || ''}
           alt=""

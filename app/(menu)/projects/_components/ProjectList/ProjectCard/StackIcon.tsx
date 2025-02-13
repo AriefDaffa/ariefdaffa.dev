@@ -46,7 +46,7 @@ const StackIcon: FC<StackIconProps> = ({ type }) => {
     case 'alpinejs':
       return <SiAlpinedotjs />;
     default:
-      return <>{type}</>;
+      return <></>;
   }
 };
 
