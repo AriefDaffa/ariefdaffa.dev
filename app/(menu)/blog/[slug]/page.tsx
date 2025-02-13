@@ -48,15 +48,15 @@ const Page: FC<PageProps> = async ({ params: paramsAsync }) => {
 
   return (
     <div className="w-full flex">
-      <div className={`w-full max-w-screen-xl mx-auto px-4 `}>
+      <div className={`w-full mx-auto px-4 `}>
         <div className="flex flex-col items-center space-y-10 pt-10">
-          <div className="text-center">
+          <div className="text-center max-w-screen-md">
             <div className="text-4xl font-bold">{post.title}</div>
             <div className="text-sm text-gray-text">
               {formatDate(post.date)} - Arief Daffa
             </div>
           </div>
-          <div className="w-full rounded-md overflow-hidden">
+          <div className="w-full rounded-md overflow-hidden max-w-screen-xl">
             <Image
               src={post.image}
               alt="x"
@@ -67,9 +67,9 @@ const Page: FC<PageProps> = async ({ params: paramsAsync }) => {
             />
           </div>
         </div>
-        <div className="w-full py-10 gap-8 relative md:flex">
+        <div className="w-full py-10 gap-8 relative md:flex md:justify-center">
           <div
-            className="w-full prose dark:prose-invert"
+            className="w-full prose max-w-screen-lg dark:prose-invert"
             dangerouslySetInnerHTML={{ __html: content.value }}
           />
           {/* <main className="">{content.value}</main> */}

@@ -1,11 +1,11 @@
-import { Inter } from 'next/font/google';
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 import Navbar from './_components/Navbar';
+import StickyNav from './_components/StickyNav';
 import { ThemeProvider } from './_provider/theme-provider';
 import './globals.css';
-import StickyNav from './_components/StickyNav';
 
 export const metadata: Metadata = {
   title: 'Arief Daffa | Personal Website',
@@ -29,12 +29,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <div className="size-full dark:bg-black dark:text-white ">
-            <div className="h-screen flex flex-col overflow-y-scroll">
+            <div className="h-screen flex flex-col overflow-y-scroll relative">
               <Navbar />
               <div className="size-full">
                 <StickyNav />
                 {children}
               </div>
+              {/* <div className="absolute size-full blur -z-10">
+                <Stars />
+              </div> */}
             </div>
           </div>
         </ThemeProvider>

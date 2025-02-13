@@ -14,7 +14,7 @@ import type { Dispatch, SetStateAction } from 'react';
 
 import StackIcon from './StackIcon';
 import { cn } from '@/app/_lib/cn';
-import { IBlog } from '../../../../_types/IBlog';
+import { IBlog } from '../../../../../_types/IBlog';
 
 interface ProjectCardProps {
   card: IBlog;

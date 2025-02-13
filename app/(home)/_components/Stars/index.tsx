@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
 import { useTheme } from 'next-themes';
@@ -43,7 +42,13 @@ const Model = () => {
     }
   });
 
-  const { theme } = useTheme();
+  const { theme, resolvedTheme } = useTheme();
+
+  useEffect(() => {
+    // Force a repaint on theme change
+  }, [theme]);
+
+  if (!resolvedTheme) return null;
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
@@ -62,7 +67,7 @@ const Model = () => {
 
 const Stars = () => {
   return (
-    <div className="relative w-full h-screen md:h-[calc(100vh-210px)]">
+    <div className="relative w-full h-screen ">
       <Canvas camera={{ position: [0, 0, 1] }}>
         <Model />
       </Canvas>

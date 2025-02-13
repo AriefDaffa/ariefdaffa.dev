@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import type { FC } from 'react';
 
 import BlogCard from './_components/BlogCard';
-import { getAllPosts } from '../_lib/blogApi';
-import { formatDate } from '../_utils/formatDate';
+import { getAllPosts } from '../../_lib/blogApi';
+import { formatDate } from '../../_utils/formatDate';
 
 export const metadata: Metadata = {
   title: 'Blog Post | Arief Daffa Personal Website',

@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import type { FC } from 'react';
 
-import { getAboutMeBySlug } from '../_lib/aboutApi';
-import { renderMd } from '../_lib/renderMd';
+import { getAboutMeBySlug } from '../../_lib/aboutApi';
+import { renderMd } from '../../_lib/renderMd';
 
 export const metadata: Metadata = {
   title: 'About Me | Arief Daffa Personal Website',

@@ -10,7 +10,7 @@ const Anime = () => {
   const { progress } = useProgress();
 
   return (
-    <div className="relative w-full h-screen md:h-[calc(100vh-210px)]">
+    <div className="relative w-full h-screen">
       {progress !== 100 && (
         <div className="absolute size-full top-0 flex items-center justify-center z-30">
           <div className="">Loading {progress}%</div>

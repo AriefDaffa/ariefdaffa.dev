@@ -2,7 +2,7 @@
 
 import { useState, type FC } from 'react';
 
-import ProjectCard from '@/app/projects/_components/ProjectList/ProjectCard';
+import ProjectCard from '@/app/(menu)/projects/_components/ProjectList/ProjectCard';
 import Modal from '@/app/_components/Modal';
 import ProjectFilter from './ProjectFilter';
 import ProjectModal from './ProjectModal';
