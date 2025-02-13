@@ -1,6 +1,6 @@
 import { SiMysql, SiSass, SiShadcnui, SiTypescript } from 'react-icons/si';
 import { FaReact, FaNodeJs, FaLaravel, FaMarkdown } from 'react-icons/fa';
-import { SiExpress } from 'react-icons/si';
+import { SiExpress, SiAlpinedotjs } from 'react-icons/si';
 import {
   RiJavascriptFill,
   RiNextjsFill,
@@ -43,6 +43,8 @@ const StackIcon: FC<StackIconProps> = ({ type }) => {
       return <SiShadcnui />;
     case 'mdx':
       return <FaMarkdown />;
+    case 'alpinejs':
+      return <SiAlpinedotjs />;
     default:
       return <>{type}</>;
   }
