@@ -1,42 +1,54 @@
-import { OrbitControls, useAnimations, useGLTF } from '@react-three/drei';
-import type { FC } from 'react';
-import { useRef } from 'react';
-import { Model } from './Model/Astro';
+import { useAnimations, useGLTF } from '@react-three/drei';
+import { useEffect, useRef } from 'react';
+import { Group, SkinnedMesh } from 'three';
 
-const Astronaut: FC = () => {
-  // const group = useRef(null);
-  // const meshRef = useRef<THREE.Mesh>(null!);
-  // const texture = useLoader(THREE.TextureLoader, '/textures/texture1.png');
+const Astronaut = () => {
+  const modelRef = useRef<Group>(null);
+  const { nodes, animations } = useGLTF('/model/source/Astronaut.glb');
 
-  // useFrame(({ clock }) => {
-  //   const t = clock.getElapsedTime();
-  //   meshRef.current.position.y = Math.sin(t) * 0.2; // Hover effect
-  // });
+  const { actions } = useAnimations(animations, modelRef);
+
+  console.log(nodes);
+
+  useEffect(() => {
+    if (actions.floating) {
+      actions?.floating.play();
+    }
+  }, [actions.floating]);
 
   return (
-    <>
-      {/* Static starfield background */}
-      {/* <Stars
-        radius={100} // Size of the inner sphere with stars
-        depth={50} // How far stars go in Z (not animated)
-        count={5000} // Number of stars
-        factor={4} // Star size factor
-        saturation={0} // Greyscale
-        fade
-      /> */}
-
-      {/* Hovering cube */}
-      {/* <mesh ref={meshRef}>
-        <boxGeometry args={[2, 2, 2]} />
-        <meshPhongMaterial color="skyblue" />
-      </mesh> */}
-      <Model />
-
-      <ambientLight intensity={0.5} />
-
-      <OrbitControls />
-    </>
+    <group ref={modelRef}>
+      <group name="RootNode0" scale={0.01}>
+        <group name="geo1">
+          <group name="astronaut2">
+            <skinnedMesh
+              name="mesh_0"
+              geometry={(nodes.mesh_0 as SkinnedMesh).geometry}
+              material={(nodes.mesh_0 as SkinnedMesh).material}
+              skeleton={(nodes.mesh_0 as SkinnedMesh).skeleton}
+            />
+            <skinnedMesh
+              name="mesh_1"
+              geometry={(nodes.mesh_1 as SkinnedMesh).geometry}
+              material={(nodes.mesh_1 as SkinnedMesh).material}
+              skeleton={(nodes.mesh_1 as SkinnedMesh).skeleton}
+            />
+            <skinnedMesh
+              name="mesh_2"
+              geometry={(nodes.mesh_2 as SkinnedMesh).geometry}
+              material={(nodes.mesh_2 as SkinnedMesh).material}
+              skeleton={(nodes.mesh_2 as SkinnedMesh).skeleton}
+            />
+          </group>
+        </group>
+        <group name="skeletal3">
+          <primitive object={nodes.Root4} />
+        </group>
+      </group>
+    </group>
   );
 };
 
 export default Astronaut;
+
+useGLTF.preload('/model/source/Astronaut.glb');
