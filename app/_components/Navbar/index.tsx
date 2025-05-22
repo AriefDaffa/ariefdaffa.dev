@@ -33,7 +33,6 @@ const Navbar: FC = () => {
           </div>
         </div>
       </div>
-      {/* DROPDOWN MENU */}
       <motion.div
         animate={{ y: clicked ? 92 : -400 }}
         className="absolute  top-0 border-y-[1px] dark:border-gray-800 z-10 w-full bg-white dark:bg-black md:hidden"

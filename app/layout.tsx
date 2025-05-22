@@ -35,9 +35,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <StickyNav />
                 {children}
               </div>
-              {/* <div className="absolute size-full blur -z-10">
-                <Stars />
-              </div> */}
             </div>
           </div>
         </ThemeProvider>
