@@ -4,7 +4,7 @@ import { Suspense, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import Stars from './_components/Stars';
 
-export const CameraController = ({
+const CameraController = ({
   targetPosition,
 }: {
   targetPosition: [number, number, number];
