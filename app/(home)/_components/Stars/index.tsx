@@ -1,12 +1,14 @@
 'use client';
 
 import { PointMaterial, Points } from '@react-three/drei';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree } from '@react-three/fiber';
 import { useTheme } from 'next-themes';
 import { useEffect, useRef, useState } from 'react';
 import { Points as PointTypes } from 'three';
 
 const Stars = () => {
+  const { camera } = useThree();
+  const { theme, resolvedTheme } = useTheme();
   const ref = useRef<PointTypes>(null);
 
   const randomInSphere = (array: Float32Array<ArrayBuffer>, radius: number) => {
@@ -35,13 +37,12 @@ const Stars = () => {
   });
 
   useFrame((state, delta) => {
+    console.log(camera.position);
     if (ref.current) {
       ref.current.rotation.x -= delta / 10;
       ref.current.rotation.y -= delta / 15;
     }
   });
-
-  const { theme, resolvedTheme } = useTheme();
 
   useEffect(() => {}, [theme, resolvedTheme]);
 

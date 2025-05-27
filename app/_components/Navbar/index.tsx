@@ -35,6 +35,7 @@ const Navbar: FC = () => {
       </div>
       <motion.div
         animate={{ y: clicked ? 92 : -400 }}
+        transition={{ type: 'spring', bounce: 0, duration: 0.2 }}
         className="absolute  top-0 border-y-[1px] dark:border-gray-800 z-10 w-full bg-white dark:bg-black md:hidden"
       >
         <Navigation />
