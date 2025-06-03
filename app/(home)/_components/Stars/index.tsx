@@ -37,7 +37,6 @@ const Stars = () => {
   });
 
   useFrame((state, delta) => {
-    console.log(camera.position);
     if (ref.current) {
       ref.current.rotation.x -= delta / 10;
       ref.current.rotation.y -= delta / 15;
