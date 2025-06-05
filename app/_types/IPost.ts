@@ -5,4 +5,5 @@ export interface IPost {
   image: string;
   content: string;
   slug: string;
+  tags: string[];
 }

@@ -3,6 +3,7 @@ title: "Bocchi the Rock! – Anime Review"
 desc: "Bocchi the Rock! is a delightful anime series that aired in late 2022 and quickly became a fan favorite. Based on a 4-koma manga by Aki Hamaji, this anime follows the story of Hitori Gotou, a painfully shy and socially awkward high school girl who dreams of becoming a rock star. With her guitar as her only companion, Hitori’s journey of self-discovery, friendship, and music is both heartwarming and incredibly relatable."
 date: 2024-07-10
 image: "/images/blog/bocchi-the-rock-review/header.jpeg"
+tags: ["review", "anime"]
 ---
 
 _Release Date: October 2022_
