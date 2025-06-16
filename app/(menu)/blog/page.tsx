@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
-import { FaMagnifyingGlass } from 'react-icons/fa6';
-import { BiFilterAlt } from 'react-icons/bi';
+// import { FaMagnifyingGlass } from 'react-icons/fa6';
+// import { BiFilterAlt } from 'react-icons/bi';
 import type { FC } from 'react';
 
 // import BlogCard from './_components/BlogCard';
@@ -20,7 +20,7 @@ const Page: FC = () => {
   return (
     <div className="w-full flex">
       <div className={`w-full max-w-screen-xl mx-auto px-4`}>
-        <div className="flex justify-center items-center gap-3 pt-6">
+        {/* <div className="flex justify-center items-center gap-3 pt-6">
           <div className="flex w-full max-w-[600px] h-12 border-[1px] rounded-xl items-center px-4 gap-2">
             <FaMagnifyingGlass className="text-gray-400" size={20} />
             <input
@@ -31,7 +31,7 @@ const Page: FC = () => {
           <div className="border-[1px] h-12 w-12 flex items-center justify-center rounded-xl text-gray-400">
             <BiFilterAlt />
           </div>
-        </div>
+        </div> */}
         <div className="grid grid-cols-1 gap-x-6 gap-y-10 pt-6 sm:grid-cols-2 lg:grid-cols-3">
           {blogs.map((item, idx) => (
             <Link
