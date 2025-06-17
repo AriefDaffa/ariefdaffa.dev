@@ -24,17 +24,25 @@ The series follows Hitori’s awkward yet hilarious attempts to navigate social 
 
 ### Hitori Gotou (Bocchi)
 
+![bocchi](/images/blog/bocchi-the-rock-review/bocchi.gif)
+
 Hitori is the heart and soul of _Bocchi the Rock!_ Her awkwardness, overactive imagination, and heartfelt determination make her an instantly lovable character. Despite her crippling anxiety, she constantly pushes herself out of her comfort zone to connect with others through music. Her internal monologues and exaggerated reactions add a unique layer of comedy and relatability to the series.
 
 ### Nijika Ijichi
+
+![nijika](/images/blog/bocchi-the-rock-review/nijika-ijichi.gif)
 
 Nijika is the cheerful and outgoing drummer who brings Hitori into the band. Her bright personality and unwavering optimism provide a nice contrast to Hitori's introversion. Nijika's dedication to the band and her support for Hitori’s growth as both a musician and a person is a core theme throughout the show.
 
 ### Ryou Yamada
 
+![ryo](/images/blog/bocchi-the-rock-review/ryo-yamada.gif)
+
 Ryou is the cool, enigmatic bassist of the band. She's somewhat aloof and has an eccentric personality, often offering deadpan humor and unexpected insights. Despite her detached demeanor, she genuinely cares about her friends and helps Bocchi grow as a guitarist.
 
 ### Ikuyo Kita
+
+![kita](/images/blog/bocchi-the-rock-review/kita.gif)
 
 Ikuyo is the energetic and enthusiastic vocalist and rhythm guitarist. She originally joins the band as a stand-in but becomes a permanent member after discovering her love for music. Her outgoing nature helps draw Bocchi out of her shell, and she brings a lot of energy to the group's dynamic.
 
