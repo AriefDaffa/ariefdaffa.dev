@@ -11,11 +11,8 @@ const TitleNav: FC = () => {
       <div className="w-full flex justify-end max-w-[1600px]">
         <div className="flex flex-col justify-between px-8 py-4 w-full">
           {pathname === '/' ? (
-            <div className=" xl:w-[60%] md:text-2xl">
-              A{' '}
-              <span className="text-primary font-semibold">Web Developer</span>{' '}
-              who loves reading novel that it&apos;s become an obsession—almost
-              to the point of getting sick of them!
+            <div className="italic xl:w-[60%] md:text-4xl">
+              Salve et ave! Spero ut salus tua servetur!
             </div>
           ) : (
             <div className="text-xl md:text-6xl font-bold line-clamp-2 leading-loose lg:text-8xl h-full">

@@ -33,7 +33,7 @@ const StickyNav = () => {
   }, []);
 
   return (
-    <div>
+    <div className="relative bg-black">
       <div ref={navbarRef} className="h-0"></div>
       <div
         className={`fixed top-0 left-0 w-full transition-transform duration-300 z-50 hidden md:block ${
