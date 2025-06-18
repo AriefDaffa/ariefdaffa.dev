@@ -31,10 +31,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <div className="size-full dark:bg-black dark:text-white ">
             <div className="h-screen flex flex-col overflow-y-scroll relative">
               <Navbar />
-              <div className="size-full">
-                <StickyNav />
-                {children}
-              </div>
+              <StickyNav />
+              <div className="size-full">{children}</div>
             </div>
           </div>
         </ThemeProvider>
