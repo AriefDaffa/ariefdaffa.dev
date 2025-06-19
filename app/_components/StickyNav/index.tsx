@@ -36,7 +36,7 @@ const StickyNav = () => {
     <div>
       <div ref={navbarRef} className="h-0"></div>
       <div
-        className={`absolute top-0 left-0 w-full transition-transform duration-300 z-50 hidden md:block ${
+        className={`fixed top-0 left-0 w-full transition-transform duration-300 z-50 hidden md:block ${
           isVisible
             ? 'translate-y-0 opacity-100'
             : '-translate-y-full opacity-0'
