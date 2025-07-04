@@ -9,7 +9,9 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Arief Daffa | Personal Website',
-  description: 'Created by using Next.js and Tailwindcss',
+  description:
+    'My personal website, designed with Next.js to highlight my work and experiences.',
+  metadataBase: new URL('https://ariefdaffa.dev'),
   robots: {
     index: true,
     follow: true,
@@ -18,21 +20,35 @@ export const metadata: Metadata = {
     'max-video-preview': -1,
     googleBot: 'index, follow',
   },
+  alternates: {
+    canonical: 'https://ariefdaffa.dev',
+  },
   openGraph: {
     type: 'website',
     url: 'https://ariefdaffa.dev',
-    title: "Arief Daffa's personal website",
-    description: 'My personal website created using Nextjs',
-    siteName: "Arief Daffa's personal website",
+    title: 'Arief Daffa | Personal Website',
+    description:
+      'My personal website, designed with Next.js to highlight my work and experiences.',
+    siteName: 'Arief Daffa',
+    locale: 'en_US',
     images: [
       {
         url: 'https://ariefdaffa.dev/images/logo/logo-dark.png',
         width: 1200,
         height: 630,
-        alt: '',
+        alt: 'Arief Daffa Logo',
       },
     ],
-    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Arief Daffa | Personal Website',
+    description:
+      'My personal website, designed with Next.js to highlight my work and experiences.',
+    images: ['https://ariefdaffa.dev/images/logo/logo-dark.png'],
+  },
+  other: {
+    'pinterest-rich-pin': 'true',
   },
 };
 
