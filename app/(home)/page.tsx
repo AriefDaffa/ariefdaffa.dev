@@ -45,7 +45,7 @@ const HomePage = () => {
           </Suspense>
         </Canvas>
       </div>
-      <div className="absolute flex z-20 size-full w-full items-center justify-center overflow-hidden">
+      <div className="absolute flex flex-col z-20 size-full w-full items-center justify-center overflow-hidden">
         <MaskContainer
           revealText={
             <div className="size-full py-8">
@@ -54,7 +54,7 @@ const HomePage = () => {
           }
           className=" text-white dark:text-black"
         >
-          <div className="md:text-4xl max-w-4xl">
+          <div className="text-xl md:text-4xl max-w-4xl">
             A <span className="text-primary font-semibold">Web Developer</span>{' '}
             who loves reading novel that it&apos;s become an obsession—almost to
             the point of getting sick of them!
