@@ -1,11 +1,14 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import StarsBackground from '../components/ui/StarsBackground.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<StarsBackground />
+	<!-- <div class="relative z-50 flex min-h-screen items-center justify-center">
+		<div class="text-center">
+			<h1 class="text-5xl font-bold text-white">Hello, world!</h1>
+			<p class="mt-4 text-xl text-white/80">This is my first Astro site.</p>
+		</div>
+	</div> -->
 </Layout>

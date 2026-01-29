@@ -1,0 +1,268 @@
+---
+// Stars Background Component - 3D animated stars moving in a circular path
+---
+
+<canvas id="stars-canvas" class="fixed inset-0 z-0"></canvas>
+<div class="relative z-50">
+  <slot />
+</div>
+
+<script>
+  import * as THREE from 'three';
+
+  // Configuration
+  const CONFIG = {
+    starCount: 9000,
+    sphereRadius: 1.5,
+    starSize: 0.005,
+    starColor: 0xffffff,
+    cameraZ: 1.2,
+  };
+
+  // Initialize scene
+  const canvasElement = document.getElementById('stars-canvas') as HTMLCanvasElement;
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+  );
+  camera.position.z = CONFIG.cameraZ;
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas: canvasElement,
+    alpha: false,
+    antialias: true,
+  });
+  renderer.setClearColor(0x000000, 1);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  // Random in sphere distribution function
+  const randomInSphere = (array: Float32Array, radius: number) => {
+    const length = array.length / 3;
+
+    for (let i = 0; i < length; i++) {
+      let x, y, z, magnitude;
+      do {
+        x = (Math.random() * 2 - 1) * radius;
+        y = (Math.random() * 2 - 1) * radius;
+        z = (Math.random() * 2 - 1) * radius;
+        magnitude = Math.sqrt(x * x + y * y + z * z);
+      } while (magnitude > radius);
+
+      array[i * 3] = x;
+      array[i * 3 + 1] = y;
+      array[i * 3 + 2] = z;
+    }
+
+    return array;
+  };
+
+  // Create stars geometry
+  const starsGeometry = new THREE.BufferGeometry();
+  const originalPositions = new Float32Array(CONFIG.starCount * 3);
+  const currentPositions = new Float32Array(CONFIG.starCount * 3);
+  randomInSphere(originalPositions, CONFIG.sphereRadius);
+  currentPositions.set(originalPositions);
+
+  starsGeometry.setAttribute('position', new THREE.BufferAttribute(currentPositions, 3));
+
+  // Create circular sprite texture
+  const spriteCanvas = document.createElement('canvas');
+  spriteCanvas.width = 32;
+  spriteCanvas.height = 32;
+  const ctx = spriteCanvas.getContext('2d')!;
+  
+  const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+  gradient.addColorStop(0, 'rgba(255,255,255,1)');
+  gradient.addColorStop(0.2, 'rgba(255,255,255,1)');
+  gradient.addColorStop(0.4, 'rgba(255,255,255,0.5)');
+  gradient.addColorStop(1, 'rgba(255,255,255,0)');
+  
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 32, 32);
+  
+  const texture = new THREE.CanvasTexture(spriteCanvas);
+
+  // Create stars material
+  const starsMaterial = new THREE.PointsMaterial({
+    color: CONFIG.starColor,
+    size: CONFIG.starSize,
+    sizeAttenuation: true,
+    transparent: true,
+    depthWrite: false,
+    map: texture,
+    blending: THREE.AdditiveBlending,
+  });
+
+  const starField = new THREE.Points(starsGeometry, starsMaterial);
+
+  // Create simple pulsing filled circle for initial state
+  const circleGeometry = new THREE.CircleGeometry(0.01, 64);
+  const circleMaterial = new THREE.MeshBasicMaterial({
+    color: 0xffffff,
+    transparent: true,
+  });
+
+  const circle = new THREE.Mesh(circleGeometry, circleMaterial);
+
+  // Create invisible hitbox for circle (same as circle)
+  const hitboxGeometry = new THREE.CircleGeometry(0.08, 64);
+  const hitboxMaterial = new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 });
+  const circleHitbox = new THREE.Mesh(hitboxGeometry, hitboxMaterial);
+
+  // Create group with initial rotation
+  const group = new THREE.Group();
+  group.rotation.set(0, 0, Math.PI / 4);
+  group.add(starField);
+  group.add(circle);
+  group.add(circleHitbox);
+  scene.add(group);
+
+  // Initially show only circle, hide star field
+  starField.visible = false;
+  circle.visible = true;
+
+  // Animation loop
+  let animationFrameId: number;
+  let lastTime = performance.now();
+  let mergeProgress = 1; // Start fully merged (one dot)
+  let lastUpdateProgress = 1;
+  let isAnimating = false;
+  let animationTarget = 1;
+
+  function animate() {
+    animationFrameId = requestAnimationFrame(animate);
+
+    const currentTime = performance.now();
+    const delta = (currentTime - lastTime) / 1000;
+    lastTime = currentTime;
+
+    // Animate merge progress towards target
+    if (isAnimating) {
+      const diff = animationTarget - mergeProgress;
+      if (Math.abs(diff) > 0.001) {
+        mergeProgress += diff * (delta * 3); // Smooth animation over ~0.33 seconds
+      } else {
+        mergeProgress = animationTarget;
+        isAnimating = false;
+      }
+    }
+
+    // Only rotate stars when not fully merged
+    if (mergeProgress < 1) {
+      starField.rotation.x -= delta / 10;
+      starField.rotation.y -= delta / 15;
+    }
+
+    // Pulse animation for circle
+    if (mergeProgress >= 0.99) {
+      const scale = 1 + Math.sin(currentTime * 0.003) * 0.3;
+      circle.scale.set(scale, scale, 1);
+      circleMaterial.opacity = 0.6 + Math.sin(currentTime * 0.003) * 0.4;
+    }
+
+    // Update star positions based on merge progress (throttled to meaningful changes)
+    if (Math.abs(mergeProgress - lastUpdateProgress) > 0.001) {
+      lastUpdateProgress = mergeProgress;
+      
+      if (mergeProgress > 0) {
+        const positionAttribute = starsGeometry.getAttribute('position') as THREE.BufferAttribute;
+        const positions = positionAttribute.array as Float32Array;
+
+        for (let i = 0; i < CONFIG.starCount * 3; i += 3) {
+          positions[i] = originalPositions[i] * (1 - mergeProgress);
+          positions[i + 1] = originalPositions[i + 1] * (1 - mergeProgress);
+          positions[i + 2] = originalPositions[i + 2] * (1 - mergeProgress);
+        }
+
+        positionAttribute.needsUpdate = true;
+      }
+
+      // Update visibility
+      if (mergeProgress >= 0.99) {
+        starField.visible = false;
+        circle.visible = true;
+      } else if (mergeProgress < 0.99) {
+        starField.visible = true;
+        circle.visible = false;
+      }
+    }
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // Mouse move handler - change cursor only when hovering over circle
+  function handleMouseMove(event: MouseEvent) {
+    const rect = canvasElement.getBoundingClientRect();
+    const mouseX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    const mouseY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    const distanceFromCenter = Math.sqrt(mouseX * mouseX + mouseY * mouseY);
+    
+    if (distanceFromCenter < 0.08 && mergeProgress > 0) {
+      canvasElement.style.cursor = 'pointer';
+    } else {
+      canvasElement.style.cursor = 'default';
+    }
+  }
+
+  window.addEventListener('mousemove', handleMouseMove);
+
+  // Click handler - only expand when circle is clicked
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+
+  function handleCanvasClick(event: MouseEvent) {
+    // Calculate mouse position in normalized device coordinates
+    const rect = canvasElement.getBoundingClientRect();
+    mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+    mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+
+    // Simple distance check from center (0, 0)
+    const distanceFromCenter = Math.sqrt(mouse.x * mouse.x + mouse.y * mouse.y);
+    
+    // Click is within circle if distance is less than 0.08 in screen space
+    if (distanceFromCenter < 0.08 && !isAnimating && mergeProgress > 0) {
+      isAnimating = true;
+      animationTarget = 0; // Expand to full star field
+    }
+  }
+
+  canvasElement.addEventListener('click', handleCanvasClick);
+
+  // Handle window resize
+  function handleResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
+
+  window.addEventListener('resize', handleResize);
+
+  // Cleanup on page navigation
+  document.addEventListener('astro:before-swap', () => {
+    cancelAnimationFrame(animationFrameId);
+    canvasElement.removeEventListener('click', handleCanvasClick);
+    window.removeEventListener('resize', handleResize);
+    renderer.dispose();
+    starsGeometry.dispose();
+    circleGeometry.dispose();
+    hitboxGeometry.dispose();
+    starsMaterial.dispose();
+    circleMaterial.dispose();
+    hitboxMaterial.dispose();
+    texture.dispose();
+  });
+</script>
+
+<style>
+  #stars-canvas {
+    width: 100vw;
+    height: 100%;
+  }
+</style>
