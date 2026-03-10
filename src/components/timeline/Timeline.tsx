@@ -26,14 +26,14 @@ export default function Timeline({ experiences }: Props) {
             className="relative pl-12 md:pl-20"
           >
             {/* Timeline dot */}
-            <div className="absolute left-2.5 md:left-6.5 top-1 w-3 h-3 rounded-full bg-violet-500 ring-4 ring-midnight-950 shadow-lg shadow-violet-500/30" />
+            <div className="absolute left-2.5 md:left-6.5 top-1 w-3 h-3 rounded-full bg-violet-500 ring-4 ring-midnight-900 shadow-lg shadow-violet-500/30" />
 
             {/* Card */}
-            <div className="group glass rounded-2xl p-6 hover:bg-white/[0.07] transition-all duration-500">
+            <div className="group glass rounded-2xl p-6 hover:bg-glass-hover transition-all duration-500">
               {/* Header */}
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
                 <div>
-                  <h3 className="text-white font-semibold text-lg">
+                  <h3 className="text-heading font-semibold text-lg">
                     {exp.title}
                   </h3>
                   <p className="text-violet-400 font-medium text-sm">

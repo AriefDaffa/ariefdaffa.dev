@@ -33,7 +33,7 @@ const profile = getLinkedInProfile();
             />
 
             <div class="text-center">
-              <h2 class="text-white font-bold text-xl">{profile.name}</h2>
+              <h2 class="text-heading font-bold text-xl">{profile.name}</h2>
               <p class="text-violet-400 text-sm mt-1">{profile.headline}</p>
               <p class="text-midnight-400 text-xs mt-2 flex items-center justify-center gap-1">
                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -49,11 +49,11 @@ const profile = getLinkedInProfile();
             <!-- Quick stats -->
             <div class="grid grid-cols-2 gap-4 text-center">
               <div>
-                <span class="block text-white font-bold text-2xl">{profile.experience.length}+</span>
+                <span class="block text-heading font-bold text-2xl">{profile.experience.length}+</span>
                 <span class="text-midnight-400 text-xs">Years Exp.</span>
               </div>
               <div>
-                <span class="block text-white font-bold text-2xl">{profile.skills.reduce((sum, s) => sum + s.items.length, 0)}+</span>
+                <span class="block text-heading font-bold text-2xl">{profile.skills.reduce((sum, s) => sum + s.items.length, 0)}+</span>
                 <span class="text-midnight-400 text-xs">Technologies</span>
               </div>
             </div>
@@ -63,7 +63,7 @@ const profile = getLinkedInProfile();
             <!-- Education -->
             {profile.education.map((edu) => (
               <div>
-                <h3 class="text-white font-semibold text-sm">{edu.degree}</h3>
+                <h3 class="text-heading font-semibold text-sm">{edu.degree}</h3>
                 <p class="text-midnight-300 text-xs">{edu.institution}</p>
                 <p class="text-midnight-400 text-xs mt-1">{edu.startDate} – {edu.endDate}</p>
               </div>
@@ -77,7 +77,7 @@ const profile = getLinkedInProfile();
                   <h3 class="text-midnight-300 text-xs uppercase tracking-wider font-semibold mb-3">Certifications</h3>
                   {profile.certifications.map((cert) => (
                     <div class="mb-2">
-                      <p class="text-white text-sm font-medium">{cert.name}</p>
+                      <p class="text-heading text-sm font-medium">{cert.name}</p>
                       <p class="text-midnight-400 text-xs">{cert.issuer} · {cert.date}</p>
                     </div>
                   ))}
@@ -91,7 +91,7 @@ const profile = getLinkedInProfile();
         <div class="lg:col-span-3 space-y-16">
           <!-- Summary -->
           <div>
-            <h2 class="text-2xl font-bold text-white mb-6">My Story</h2>
+            <h2 class="text-2xl font-bold text-heading mb-6">My Story</h2>
             <div class="space-y-4 text-midnight-200 leading-relaxed">
               <p>
                 {profile.summary}

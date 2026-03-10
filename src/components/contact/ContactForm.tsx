@@ -40,7 +40,7 @@ export default function ContactForm() {
   };
 
   const inputClasses =
-    'w-full px-4 py-3 rounded-xl bg-midnight-800/50 border border-glass-border text-white placeholder-midnight-400 text-sm focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 transition-all duration-300';
+    'w-full px-4 py-3 rounded-xl bg-midnight-800/50 border border-glass-border text-heading placeholder-midnight-400 text-sm focus:outline-none focus:border-violet-500/50 focus:ring-1 focus:ring-violet-500/20 transition-all duration-300';
 
   return (
     <motion.form

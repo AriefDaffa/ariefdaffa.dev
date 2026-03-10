@@ -4,8 +4,14 @@ import { siteConfig } from '../../lib/config';
 const currentPath = Astro.url.pathname;
 ---
 
+<!-- Mobile Backdrop Overlay -->
+<div
+  class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300"
+  id="mobile-backdrop"
+></div>
+
 <header
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent"
   id="main-nav"
 >
   <div class="section-container">
@@ -15,10 +21,8 @@ const currentPath = Astro.url.pathname;
         href="/"
         class="relative group flex items-center gap-2"
       >
-        <img src="/images/logo/logo-dark.png" alt="Arief Daffa" class="w-8 h-8 rounded-lg" />
-        <span class="hidden sm:block text-white font-semibold tracking-tight text-lg">
-          {siteConfig.name}
-        </span>
+        <img src="/images/logo/logo-light.png" alt="Arief Daffa" class="w-8 h-8 rounded-lg dark-logo" />
+        <img src="/images/logo/logo-dark.png" alt="Arief Daffa" class="w-8 h-8 rounded-lg light-logo hidden" />
       </a>
 
       <!-- Desktop Navigation -->
@@ -29,34 +33,67 @@ const currentPath = Astro.url.pathname;
             class:list={[
               'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
               currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
-                ? 'text-white bg-white/10'
-                : 'text-midnight-200 hover:text-white hover:bg-white/5',
+                ? 'text-heading bg-glass-active'
+                : 'text-midnight-200 hover:text-heading hover:bg-glass-hover',
             ]}
           >
             {item.label}
           </a>
         ))}
+
+        <!-- Theme Toggle -->
+        <button
+          id="theme-toggle"
+          class="ml-2 w-9 h-9 rounded-lg flex items-center justify-center text-midnight-300 hover:text-heading hover:bg-glass-hover transition-all duration-200"
+          aria-label="Toggle theme"
+        >
+          <!-- Sun icon (shown in dark mode) -->
+          <svg class="w-[18px] h-[18px] theme-icon-sun" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <!-- Moon icon (shown in light mode) -->
+          <svg class="w-[18px] h-[18px] theme-icon-moon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
       </div>
 
-      <!-- Mobile Menu Button -->
-      <button
-        class="md:hidden p-2 text-midnight-200 hover:text-white transition-colors"
-        id="mobile-menu-btn"
-        aria-label="Toggle menu"
-      >
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="menu-icon">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
-        <svg class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+      <!-- Mobile: theme toggle + menu button -->
+      <div class="md:hidden flex items-center gap-1">
+        <button
+          id="theme-toggle-mobile"
+          class="w-10 h-10 flex items-center justify-center text-midnight-300 hover:text-heading transition-colors rounded-lg hover:bg-glass-hover"
+          aria-label="Toggle theme"
+        >
+          <svg class="w-5 h-5 theme-icon-sun-m" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <svg class="w-5 h-5 theme-icon-moon-m hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </button>
+
+        <!-- Mobile Menu Button -->
+        <button
+          class="relative w-10 h-10 flex items-center justify-center text-midnight-200 hover:text-heading transition-colors rounded-lg hover:bg-glass-hover"
+          id="mobile-menu-btn"
+          aria-label="Toggle menu"
+          aria-expanded="false"
+        >
+          <svg class="w-6 h-6 transition-all duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="menu-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg class="w-6 h-6 absolute transition-all duration-300 opacity-0 scale-75" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
     </nav>
   </div>
 
-  <!-- Mobile Menu -->
+  <!-- Mobile Menu Panel -->
   <div
-    class="md:hidden hidden absolute top-full left-0 right-0 glass-strong"
+    class="mobile-menu-panel md:hidden"
     id="mobile-menu"
   >
     <div class="section-container py-4 flex flex-col gap-1">
@@ -64,10 +101,10 @@ const currentPath = Astro.url.pathname;
         <a
           href={item.href}
           class:list={[
-            'px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200',
+            'mobile-nav-link px-4 py-3.5 rounded-xl text-base font-medium transition-all duration-200 flex items-center',
             currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
-              ? 'text-white bg-white/10'
-              : 'text-midnight-200 hover:text-white hover:bg-white/5',
+              ? 'text-heading bg-glass-active'
+              : 'text-midnight-200 hover:text-heading hover:bg-glass-hover active:bg-glass-active',
           ]}
         >
           {item.label}
@@ -77,40 +114,189 @@ const currentPath = Astro.url.pathname;
   </div>
 </header>
 
+<style>
+  /* Mobile menu panel – slide down with animation */
+  .mobile-menu-panel {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--color-midnight-950);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--color-glass-border);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+      max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.25s ease;
+  }
+
+  .mobile-menu-panel.is-open {
+    max-height: 400px;
+    opacity: 1;
+  }
+
+  /* Mobile nav links staggered entrance */
+  .mobile-menu-panel.is-open .mobile-nav-link {
+    animation: slideInLink 0.3s ease forwards;
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+
+  .mobile-menu-panel.is-open .mobile-nav-link:nth-child(1) { animation-delay: 0.05s; }
+  .mobile-menu-panel.is-open .mobile-nav-link:nth-child(2) { animation-delay: 0.1s; }
+  .mobile-menu-panel.is-open .mobile-nav-link:nth-child(3) { animation-delay: 0.15s; }
+  .mobile-menu-panel.is-open .mobile-nav-link:nth-child(4) { animation-delay: 0.2s; }
+  .mobile-menu-panel.is-open .mobile-nav-link:nth-child(5) { animation-delay: 0.25s; }
+
+  @keyframes slideInLink {
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+</style>
+
 <script>
-  // Navigation scroll effect
-  const nav = document.getElementById('main-nav');
-  let lastScrollY = 0;
+  function initNavigation() {
+    const nav = document.getElementById('main-nav');
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+    const backdrop = document.getElementById('mobile-backdrop');
+    let isOpen = false;
 
-  function updateNav() {
-    const scrollY = window.scrollY;
-
-    if (nav) {
-      if (scrollY > 50) {
+    // Navigation scroll effect
+    function updateNav() {
+      if (!nav) return;
+      if (window.scrollY > 50) {
         nav.classList.add('glass-strong');
-        // nav.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
       } else {
-        nav.classList.remove('glass-strong');
-        // nav.style.borderBottom = '1px solid transparent';
+        // Don't remove glass if mobile menu is open
+        if (!isOpen) {
+          nav.classList.remove('glass-strong');
+        }
       }
     }
 
-    lastScrollY = scrollY;
+    window.addEventListener('scroll', updateNav, { passive: true });
+    updateNav();
+
+    // Toggle mobile menu
+    function toggleMenu() {
+      isOpen = !isOpen;
+
+      if (mobileMenu) {
+        mobileMenu.classList.toggle('is-open', isOpen);
+      }
+
+      if (menuIcon && closeIcon) {
+        if (isOpen) {
+          menuIcon.style.opacity = '0';
+          menuIcon.style.transform = 'scale(0.75) rotate(90deg)';
+          closeIcon.style.opacity = '1';
+          closeIcon.style.transform = 'scale(1) rotate(0deg)';
+        } else {
+          menuIcon.style.opacity = '1';
+          menuIcon.style.transform = 'scale(1) rotate(0deg)';
+          closeIcon.style.opacity = '0';
+          closeIcon.style.transform = 'scale(0.75) rotate(-90deg)';
+        }
+      }
+
+      if (backdrop) {
+        if (isOpen) {
+          backdrop.style.opacity = '1';
+          backdrop.style.pointerEvents = 'auto';
+        } else {
+          backdrop.style.opacity = '0';
+          backdrop.style.pointerEvents = 'none';
+        }
+      }
+
+      // Add glass to nav when menu is open
+      if (nav) {
+        if (isOpen) {
+          nav.classList.add('glass-strong');
+        } else {
+          updateNav();
+        }
+      }
+
+      // Toggle body scroll lock
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+
+      // Update aria
+      menuBtn?.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    function closeMenu() {
+      if (isOpen) toggleMenu();
+    }
+
+    // Button click
+    menuBtn?.addEventListener('click', toggleMenu);
+
+    // Backdrop click closes menu
+    backdrop?.addEventListener('click', closeMenu);
+
+    // Close menu when a nav link is clicked
+    const mobileLinks = mobileMenu?.querySelectorAll('a');
+    mobileLinks?.forEach((link) => {
+      link.addEventListener('click', closeMenu);
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        closeMenu();
+      }
+    });
+
+    // Close menu if resized past mobile breakpoint
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    mediaQuery.addEventListener('change', (e) => {
+      if (e.matches && isOpen) {
+        closeMenu();
+      }
+    });
+
+    // ─── Theme Toggle ───
+    function updateThemeIcons(theme: string) {
+      const sunIcons = document.querySelectorAll('.theme-icon-sun, .theme-icon-sun-m');
+      const moonIcons = document.querySelectorAll('.theme-icon-moon, .theme-icon-moon-m');
+
+      sunIcons.forEach((el) => {
+        (el as HTMLElement).classList.toggle('hidden', theme === 'light');
+      });
+      moonIcons.forEach((el) => {
+        (el as HTMLElement).classList.toggle('hidden', theme === 'dark');
+      });
+    }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') || 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      localStorage.setItem('theme', next);
+      updateThemeIcons(next);
+    }
+
+    // Attach toggle listeners
+    document.getElementById('theme-toggle')?.addEventListener('click', toggleTheme);
+    document.getElementById('theme-toggle-mobile')?.addEventListener('click', toggleTheme);
+
+    // Set initial icon state
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    updateThemeIcons(currentTheme);
   }
 
-  window.addEventListener('scroll', updateNav, { passive: true });
-  updateNav();
+  // Initialize
+  initNavigation();
 
-  // Mobile menu toggle
-  const menuBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
-  const menuIcon = document.getElementById('menu-icon');
-  const closeIcon = document.getElementById('close-icon');
-
-  menuBtn?.addEventListener('click', () => {
-    const isOpen = !mobileMenu?.classList.contains('hidden');
-    mobileMenu?.classList.toggle('hidden');
-    menuIcon?.classList.toggle('hidden');
-    closeIcon?.classList.toggle('hidden');
-  });
+  // Re-initialize on Astro page transitions if used
+  document.addEventListener('astro:after-swap', initNavigation);
 </script>

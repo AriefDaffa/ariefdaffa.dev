@@ -20,7 +20,7 @@ const readingTime = calculateReadingTime(body);
   href={`/blog/${slug}`}
   class:list={[
     'group block rounded-2xl overflow-hidden transition-all duration-500',
-    'glass hover:bg-white/[0.07] hover:-translate-y-1',
+    'glass hover:bg-glass-hover hover:-translate-y-1',
     featured ? 'md:col-span-2' : '',
   ]}
 >
@@ -58,7 +58,7 @@ const readingTime = calculateReadingTime(body);
     </div>
 
     <!-- Title -->
-    <h3 class="text-white font-semibold text-lg leading-snug group-hover:text-violet-400 transition-colors duration-300">
+    <h3 class="text-heading font-semibold text-lg leading-snug group-hover:text-violet-400 transition-colors duration-300">
       {title}
     </h3>
 

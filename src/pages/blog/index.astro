@@ -30,7 +30,7 @@ const allTags = [...new Set(posts.flatMap((p) => p.data.tags))];
           All
         </span>
         {allTags.map((tag) => (
-          <span class="px-3 py-1.5 rounded-lg glass text-midnight-300 text-xs font-medium cursor-pointer hover:text-white hover:bg-white/10 transition-all">
+          <span class="px-3 py-1.5 rounded-lg glass text-midnight-300 text-xs font-medium cursor-pointer hover:text-heading hover:bg-glass-active transition-all">
             #{tag}
           </span>
         ))}

@@ -19,7 +19,7 @@ export default function GitHubRepos({ repos }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-30px' }}
           transition={{ duration: 0.4, delay: idx * 0.05 }}
-          className="group p-5 rounded-xl glass hover:bg-white/[0.07] transition-all duration-300 hover:-translate-y-0.5"
+          className="group p-5 rounded-xl glass hover:bg-glass-hover transition-all duration-300 hover:-translate-y-0.5"
         >
           {/* Repo name */}
           <div className="flex items-start justify-between gap-3 mb-3">
@@ -37,7 +37,7 @@ export default function GitHubRepos({ repos }: Props) {
                   d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"
                 />
               </svg>
-              <h3 className="text-white font-semibold text-sm truncate group-hover:text-violet-400 transition-colors">
+              <h3 className="text-heading font-semibold text-sm truncate group-hover:text-violet-400 transition-colors">
                 {repo.name}
               </h3>
             </div>

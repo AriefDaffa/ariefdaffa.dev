@@ -40,7 +40,7 @@ export default function SkillsGrid({ skills }: Props) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.5, delay: idx * 0.1 }}
-          className="group relative rounded-2xl glass p-6 hover:bg-white/[0.07] transition-all duration-500"
+          className="group relative rounded-2xl glass p-6 hover:bg-glass-hover transition-all duration-500"
         >
           {/* Background gradient */}
           <div
@@ -56,7 +56,7 @@ export default function SkillsGrid({ skills }: Props) {
               <span className="text-2xl">
                 {categoryIcons[category.category] || '💡'}
               </span>
-              <h3 className="text-white font-semibold text-lg">
+              <h3 className="text-heading font-semibold text-lg">
                 {category.category}
               </h3>
               <span className="ml-auto text-midnight-400 text-xs font-mono">

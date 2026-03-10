@@ -28,7 +28,7 @@ const profile = getLinkedInProfile();
   <Hero />
 
   <!-- Featured Projects Section -->
-  <section class="relative py-24 md:py-32" id="projects">
+  <section class="relative py-24 md:py-32 overflow-hidden" id="projects">
     <div class="section-container">
       <SectionHeader
         label="Portfolio"
@@ -71,7 +71,7 @@ const profile = getLinkedInProfile();
       <div class="text-center mt-12">
         <a
           href="/projects"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass text-midnight-200 hover:text-white text-sm font-medium transition-all duration-300 hover:bg-white/10"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass text-midnight-200 hover:text-heading text-sm font-medium transition-all duration-300 hover:bg-glass-active"
         >
           View all projects
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +83,7 @@ const profile = getLinkedInProfile();
   </section>
 
   <!-- Skills Section -->
-  <section class="relative py-24 md:py-32" id="skills">
+  <section class="relative py-24 md:py-32 overflow-hidden" id="skills">
     <!-- Background accent -->
     <div class="absolute inset-0">
       <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-violet-500/5 blur-[150px] rounded-full"></div>
@@ -102,7 +102,7 @@ const profile = getLinkedInProfile();
   </section>
 
   <!-- Blog Section -->
-  <section class="relative py-24 md:py-32" id="blog">
+  <section class="relative py-24 md:py-32 overflow-hidden" id="blog">
     <div class="section-container">
       <SectionHeader
         label="Blog"
@@ -128,7 +128,7 @@ const profile = getLinkedInProfile();
       <div class="text-center mt-12">
         <a
           href="/blog"
-          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass text-midnight-200 hover:text-white text-sm font-medium transition-all duration-300 hover:bg-white/10"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass text-midnight-200 hover:text-heading text-sm font-medium transition-all duration-300 hover:bg-glass-active"
         >
           Read all posts
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -140,7 +140,7 @@ const profile = getLinkedInProfile();
   </section>
 
   <!-- CTA Section -->
-  <section class="relative py-24 md:py-32">
+  <section class="relative py-24 md:py-32 overflow-hidden">
     <div class="section-container">
       <div class="relative rounded-3xl glass p-12 md:p-16 text-center overflow-hidden">
         <!-- Background decorations -->
@@ -148,7 +148,7 @@ const profile = getLinkedInProfile();
         <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-1 bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
 
         <div class="relative z-10 max-w-2xl mx-auto space-y-6">
-          <h2 class="text-3xl md:text-4xl font-bold text-white">
+          <h2 class="text-3xl md:text-4xl font-bold text-heading">
             Let's build something <span class="gradient-text">amazing</span> together
           </h2>
           <p class="text-midnight-200 text-lg">
@@ -165,7 +165,7 @@ const profile = getLinkedInProfile();
               href="https://github.com/AriefDaffa"
               target="_blank"
               rel="noopener noreferrer"
-              class="px-8 py-3.5 rounded-xl glass text-white font-semibold text-sm transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
+              class="px-8 py-3.5 rounded-xl glass text-heading font-semibold text-sm transition-all duration-300 hover:bg-glass-active hover:-translate-y-0.5"
             >
               View GitHub
             </a>

@@ -28,8 +28,17 @@ const {
 ---
 
 <!doctype html>
-<html lang="en" class="noise-overlay">
+<html lang="en" class="noise-overlay" data-theme="dark">
   <head>
+    <!-- FOUC-free theme initialization -->
+    <script is:inline>
+      (function () {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = stored || (prefersDark ? 'dark' : 'light');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
     <SEO
       title={title}
       description={description}
