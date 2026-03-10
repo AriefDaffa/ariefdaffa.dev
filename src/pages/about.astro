@@ -1,0 +1,136 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/ui/PageHeader.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import Timeline from '../components/timeline/Timeline';
+import SkillsGrid from '../components/skills/SkillsGrid';
+import { getLinkedInProfile } from '../services/linkedin';
+
+const profile = getLinkedInProfile();
+---
+
+<BaseLayout
+  title="About"
+  description="Learn about my journey as a software engineer, my technical skills, and professional experience."
+>
+  <PageHeader
+    title="About Me"
+    description="The story behind the code — my journey, passions, and what drives me as a developer."
+  />
+
+  <!-- Story Section -->
+  <section class="py-16 md:py-24">
+    <div class="section-container">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-16">
+        <!-- Profile Card -->
+        <div class="lg:col-span-2">
+          <div class="sticky top-28 glass rounded-2xl p-6 space-y-6">
+            <!-- Avatar -->
+            <img
+              src="/images/about/photo.png"
+              alt="Arief Daffa Abdullah"
+              class="w-32 h-32 rounded-2xl object-cover mx-auto"
+            />
+
+            <div class="text-center">
+              <h2 class="text-white font-bold text-xl">{profile.name}</h2>
+              <p class="text-violet-400 text-sm mt-1">{profile.headline}</p>
+              <p class="text-midnight-400 text-xs mt-2 flex items-center justify-center gap-1">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                {profile.location}
+              </p>
+            </div>
+
+            <div class="h-px bg-glass-border"></div>
+
+            <!-- Quick stats -->
+            <div class="grid grid-cols-2 gap-4 text-center">
+              <div>
+                <span class="block text-white font-bold text-2xl">{profile.experience.length}+</span>
+                <span class="text-midnight-400 text-xs">Years Exp.</span>
+              </div>
+              <div>
+                <span class="block text-white font-bold text-2xl">{profile.skills.reduce((sum, s) => sum + s.items.length, 0)}+</span>
+                <span class="text-midnight-400 text-xs">Technologies</span>
+              </div>
+            </div>
+
+            <div class="h-px bg-glass-border"></div>
+
+            <!-- Education -->
+            {profile.education.map((edu) => (
+              <div>
+                <h3 class="text-white font-semibold text-sm">{edu.degree}</h3>
+                <p class="text-midnight-300 text-xs">{edu.institution}</p>
+                <p class="text-midnight-400 text-xs mt-1">{edu.startDate} – {edu.endDate}</p>
+              </div>
+            ))}
+
+            <!-- Certifications -->
+            {profile.certifications.length > 0 && (
+              <>
+                <div class="h-px bg-glass-border"></div>
+                <div>
+                  <h3 class="text-midnight-300 text-xs uppercase tracking-wider font-semibold mb-3">Certifications</h3>
+                  {profile.certifications.map((cert) => (
+                    <div class="mb-2">
+                      <p class="text-white text-sm font-medium">{cert.name}</p>
+                      <p class="text-midnight-400 text-xs">{cert.issuer} · {cert.date}</p>
+                    </div>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="lg:col-span-3 space-y-16">
+          <!-- Summary -->
+          <div>
+            <h2 class="text-2xl font-bold text-white mb-6">My Story</h2>
+            <div class="space-y-4 text-midnight-200 leading-relaxed">
+              <p>
+                {profile.summary}
+              </p>
+              <p>
+                During my college years, I actively participated in various communities that played a crucial role in refining my skills. As a proud member of the Basic Computing Community (BCC), affiliated with esteemed organizations like GoTo and Gojek, I had the privilege of expanding my knowledge base.
+              </p>
+              <p>
+                While my passion primarily lies in web Frontend Engineering, I also enjoy delving into other programming realms, including Backend Engineering, Android Engineering, and even dipping my toes into the realm of DevOps. This diverse exploration fuels my continuous growth as a well-rounded developer.
+              </p>
+              <p>
+                Apart from programming, I have a deep love for reading manga and webtoon! If you share an interest in manga and webtoon, feel free to reach out to me. 😂
+              </p>
+            </div>
+          </div>
+
+          <!-- Experience Timeline -->
+          <div>
+            <SectionHeader
+              title="Experience"
+              label="Career"
+              align="left"
+            />
+            <Timeline experiences={profile.experience} client:visible />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="py-16 md:py-24">
+    <div class="section-container">
+      <SectionHeader
+        label="Expertise"
+        title="Technical Skills"
+        description="The complete toolkit I use to build modern software."
+      />
+      <SkillsGrid skills={profile.skills} client:visible />
+    </div>
+  </section>
+</BaseLayout>

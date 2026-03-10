@@ -1,14 +1,177 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import StarsBackground from '../components/ui/StarsBackground.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/hero/Hero.astro';
+import SectionHeader from '../components/ui/SectionHeader.astro';
+import ProjectCard from '../components/projects/ProjectCard.astro';
+import BlogCard from '../components/blog/BlogCard.astro';
+import SkillsGrid from '../components/skills/SkillsGrid';
+import { getCollection } from 'astro:content';
+import { getLinkedInProfile } from '../services/linkedin';
+import projectsData from '../data/projects.json';
+
+// Get blog posts
+const allPosts = await getCollection('blog');
+const latestPosts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+// Get featured projects
+const featuredProjects = projectsData.filter((p) => p.featured).slice(0, 3);
+
+// Get skills
+const profile = getLinkedInProfile();
 ---
 
-<Layout>
-	<StarsBackground />
-	<!-- <div class="relative z-50 flex min-h-screen items-center justify-center">
-		<div class="text-center">
-			<h1 class="text-5xl font-bold text-white">Hello, world!</h1>
-			<p class="mt-4 text-xl text-white/80">This is my first Astro site.</p>
-		</div>
-	</div> -->
-</Layout>
+<BaseLayout>
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Featured Projects Section -->
+  <section class="relative py-24 md:py-32" id="projects">
+    <div class="section-container">
+      <SectionHeader
+        label="Portfolio"
+        title="Featured Projects"
+        description="A selection of projects I've built, ranging from full-stack web applications to open-source developer tools."
+      />
+
+      <!-- Featured hero card -->
+      {featuredProjects.length > 0 && (
+        <ProjectCard
+          title={featuredProjects[0].title}
+          slug={featuredProjects[0].slug}
+          description={featuredProjects[0].description}
+          technologies={featuredProjects[0].technologies}
+          githubUrl={featuredProjects[0].githubUrl}
+          liveUrl={featuredProjects[0].liveUrl}
+          image={featuredProjects[0].image}
+          featured={true}
+        />
+      )}
+
+      <!-- Remaining featured projects -->
+      {featuredProjects.length > 1 && (
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          {featuredProjects.slice(1).map((project) => (
+            <ProjectCard
+              title={project.title}
+              slug={project.slug}
+              description={project.description}
+              technologies={project.technologies}
+              githubUrl={project.githubUrl}
+              liveUrl={project.liveUrl}
+              image={project.image}
+              featured={false}
+            />
+          ))}
+        </div>
+      )}
+
+      <div class="text-center mt-12">
+        <a
+          href="/projects"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass text-midnight-200 hover:text-white text-sm font-medium transition-all duration-300 hover:bg-white/10"
+        >
+          View all projects
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="relative py-24 md:py-32" id="skills">
+    <!-- Background accent -->
+    <div class="absolute inset-0">
+      <div class="absolute top-1/2 left-0 -translate-y-1/2 w-[500px] h-[500px] bg-violet-500/5 blur-[150px] rounded-full"></div>
+      <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-neon-blue/5 blur-[120px] rounded-full"></div>
+    </div>
+
+    <div class="section-container relative z-10">
+      <SectionHeader
+        label="Expertise"
+        title="Skills & Technologies"
+        description="The technologies and tools I use to bring ideas to life."
+      />
+
+      <SkillsGrid skills={profile.skills} client:visible />
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section class="relative py-24 md:py-32" id="blog">
+    <div class="section-container">
+      <SectionHeader
+        label="Blog"
+        title="Latest Posts"
+        description="Thoughts on software engineering, web technologies, and building great products."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {latestPosts.map((post) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+            slug={post.id}
+            body={post.body || ''}
+            featured={false}
+            heroImage={post.data.heroImage}
+          />
+        ))}
+      </div>
+
+      <div class="text-center mt-12">
+        <a
+          href="/blog"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass text-midnight-200 hover:text-white text-sm font-medium transition-all duration-300 hover:bg-white/10"
+        >
+          Read all posts
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="relative py-24 md:py-32">
+    <div class="section-container">
+      <div class="relative rounded-3xl glass p-12 md:p-16 text-center overflow-hidden">
+        <!-- Background decorations -->
+        <div class="absolute inset-0 bg-gradient-to-br from-violet-500/10 via-transparent to-neon-blue/10"></div>
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-1 bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+
+        <div class="relative z-10 max-w-2xl mx-auto space-y-6">
+          <h2 class="text-3xl md:text-4xl font-bold text-white">
+            Let's build something <span class="gradient-text">amazing</span> together
+          </h2>
+          <p class="text-midnight-200 text-lg">
+            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+            <a
+              href="/contact"
+              class="px-8 py-3.5 rounded-xl bg-gradient-to-r from-violet-600 to-violet-500 text-white font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/25 hover:-translate-y-0.5"
+            >
+              Start a Conversation
+            </a>
+            <a
+              href="https://github.com/AriefDaffa"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-8 py-3.5 rounded-xl glass text-white font-semibold text-sm transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
+            >
+              View GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

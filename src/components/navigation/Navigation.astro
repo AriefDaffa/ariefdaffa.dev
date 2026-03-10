@@ -1,0 +1,116 @@
+---
+import { siteConfig } from '../../lib/config';
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  id="main-nav"
+>
+  <div class="section-container">
+    <nav class="flex items-center justify-between h-16 md:h-20">
+      <!-- Logo -->
+      <a
+        href="/"
+        class="relative group flex items-center gap-2"
+      >
+        <img src="/images/logo/logo-dark.png" alt="Arief Daffa" class="w-8 h-8 rounded-lg" />
+        <span class="hidden sm:block text-white font-semibold tracking-tight text-lg">
+          {siteConfig.name}
+        </span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center gap-1">
+        {siteConfig.nav.map((item) => (
+          <a
+            href={item.href}
+            class:list={[
+              'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
+              currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
+                ? 'text-white bg-white/10'
+                : 'text-midnight-200 hover:text-white hover:bg-white/5',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        class="md:hidden p-2 text-midnight-200 hover:text-white transition-colors"
+        id="mobile-menu-btn"
+        aria-label="Toggle menu"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="menu-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" id="close-icon">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    class="md:hidden hidden absolute top-full left-0 right-0 glass-strong"
+    id="mobile-menu"
+  >
+    <div class="section-container py-4 flex flex-col gap-1">
+      {siteConfig.nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200',
+            currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href))
+              ? 'text-white bg-white/10'
+              : 'text-midnight-200 hover:text-white hover:bg-white/5',
+          ]}
+        >
+          {item.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</header>
+
+<script>
+  // Navigation scroll effect
+  const nav = document.getElementById('main-nav');
+  let lastScrollY = 0;
+
+  function updateNav() {
+    const scrollY = window.scrollY;
+
+    if (nav) {
+      if (scrollY > 50) {
+        nav.classList.add('glass-strong');
+        // nav.style.borderBottom = '1px solid rgba(255,255,255,0.05)';
+      } else {
+        nav.classList.remove('glass-strong');
+        // nav.style.borderBottom = '1px solid transparent';
+      }
+    }
+
+    lastScrollY = scrollY;
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  menuBtn?.addEventListener('click', () => {
+    const isOpen = !mobileMenu?.classList.contains('hidden');
+    mobileMenu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  });
+</script>

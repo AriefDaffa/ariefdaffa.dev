@@ -1,0 +1,88 @@
+---
+import { siteConfig } from '../../lib/config';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="relative border-t border-glass-border mt-32">
+  <!-- Gradient glow line -->
+  <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-violet-500/50 to-transparent"></div>
+
+  <div class="section-container py-16 md:py-20">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">
+      <!-- Brand -->
+      <div class="space-y-4">
+        <div class="flex items-center gap-2">
+          <img src="/images/logo/logo-dark.png" alt="Arief Daffa" class="w-8 h-8 rounded-lg" />
+          <span class="text-white font-semibold text-lg">{siteConfig.name}</span>
+        </div>
+        <p class="text-midnight-300 text-sm leading-relaxed max-w-xs">
+          Web Developer specializing in building captivating and user-friendly web experiences.
+        </p>
+      </div>
+
+      <!-- Links -->
+      <div class="space-y-4">
+        <h3 class="text-white font-semibold text-sm uppercase tracking-wider">Navigation</h3>
+        <div class="flex flex-col gap-2">
+          {siteConfig.nav.map((item) => (
+            <a
+              href={item.href}
+              class="text-midnight-300 hover:text-violet-400 transition-colors text-sm w-fit"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Social -->
+      <div class="space-y-4">
+        <h3 class="text-white font-semibold text-sm uppercase tracking-wider">Connect</h3>
+        <div class="flex flex-col gap-2">
+          <a
+            href={siteConfig.links.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-midnight-300 hover:text-violet-400 transition-colors text-sm w-fit"
+          >
+            GitHub
+          </a>
+          <a
+            href={siteConfig.links.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-midnight-300 hover:text-violet-400 transition-colors text-sm w-fit"
+          >
+            LinkedIn
+          </a>
+          <a
+            href={siteConfig.links.twitter}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-midnight-300 hover:text-violet-400 transition-colors text-sm w-fit"
+          >
+            Twitter / X
+          </a>
+          <a
+            href={`mailto:${siteConfig.email}`}
+            class="text-midnight-300 hover:text-violet-400 transition-colors text-sm w-fit"
+          >
+            {siteConfig.email}
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="mt-16 pt-8 border-t border-glass-border flex flex-col sm:flex-row justify-between items-center gap-4">
+      <p class="text-midnight-400 text-xs">
+        &copy; {currentYear} {siteConfig.name}. All rights reserved.
+      </p>
+      <p class="text-midnight-400 text-xs">
+        Built with <span class="text-violet-400">Astro</span> &
+        <span class="text-neon-cyan">Three.js</span>
+      </p>
+    </div>
+  </div>
+</footer>

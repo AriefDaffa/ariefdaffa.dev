@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/ui/PageHeader.astro';
+import BlogCard from '../../components/blog/BlogCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .filter((post) => !post.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+// Get unique tags
+const allTags = [...new Set(posts.flatMap((p) => p.data.tags))];
+---
+
+<BaseLayout
+  title="Blog"
+  description="Thoughts on software engineering, web technologies, and building great digital products."
+>
+  <PageHeader
+    title="Blog"
+    description="Writing about software engineering, web development, and the craft of building great products."
+  />
+
+  <section class="py-16 md:py-24">
+    <div class="section-container">
+      <!-- Tags filter -->
+      <div class="flex flex-wrap gap-2 mb-12">
+        <span class="px-3 py-1.5 rounded-lg bg-violet-500/20 border border-violet-500/30 text-violet-300 text-xs font-medium cursor-pointer">
+          All
+        </span>
+        {allTags.map((tag) => (
+          <span class="px-3 py-1.5 rounded-lg glass text-midnight-300 text-xs font-medium cursor-pointer hover:text-white hover:bg-white/10 transition-all">
+            #{tag}
+          </span>
+        ))}
+      </div>
+
+      <!-- Posts grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {posts.map((post, idx) => (
+          <BlogCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate}
+            tags={post.data.tags}
+            slug={post.id}
+            body={post.body || ''}
+            featured={post.data.featured && idx === 0}
+            heroImage={post.data.heroImage}
+          />
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <div class="text-center py-20">
+          <p class="text-midnight-300 text-lg">No posts yet. Check back soon!</p>
+        </div>
+      )}
+    </div>
+  </section>
+</BaseLayout>
