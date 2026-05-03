@@ -1,0 +1,55 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pathname: string;
+  image?: string;
+  type?: 'website' | 'article';
+  publishedTime?: string;
+  schema?: unknown;
+}
+
+const {
+  title,
+  description,
+  pathname,
+  image = 'https://images.unsplash.com/photo-1498050108023-c5249f4df0852?auto=format&fit=crop&w=1600&q=85',
+  type = 'website',
+  publishedTime,
+  schema,
+} = Astro.props;
+
+const site = Astro.site ?? new URL('https://ariefdaffa.dev');
+const canonical = new URL(pathname, site).href;
+const fullTitle = title.includes('Arief Daffa') ? title : `${title} - Arief Daffa`;
+const jsonLd = schema ? JSON.stringify(schema) : undefined;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content={description} />
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Arief Daffa" />
+<meta name="theme-color" content="#070806" />
+<meta name="generator" content={Astro.generator} />
+<title>{fullTitle}</title>
+<link rel="canonical" href={canonical} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+  href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap"
+  rel="stylesheet"
+/>
+<meta property="og:site_name" content="Arief Daffa" />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={image} />
+{publishedTime && <meta property="article:published_time" content={publishedTime} />}
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={image} />
+{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}

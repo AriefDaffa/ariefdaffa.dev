@@ -1,0 +1,86 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const description = `${project.data.title} project by Arief Daffa. ${project.data.description}`;
+---
+
+<PageLayout
+  title={`${project.data.title} - Arief Daffa Project`}
+  description={description}
+  pathname={`/projects/${project.id}/`}
+  image={project.data.image}
+  marqueeItems={['Build', 'Design', 'Frontend', 'Systems', 'Motion']}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: project.data.title,
+    description,
+    image: project.data.image,
+    url: `https://ariefdaffa.dev/projects/${project.id}/`,
+    creator: {
+      '@type': 'Person',
+      name: 'Arief Daffa',
+    },
+  }}
+>
+  <section class="section detail-hero">
+    <div class="container">
+      <a class="text-link" href="/projects/">← All projects</a>
+      <div class="detail-hero-grid">
+        <div>
+          <p class="page-kicker">{project.data.category}</p>
+          <h1 class="detail-title">{project.data.title}</h1>
+        </div>
+        <div class="detail-intro">
+          <div class="detail-meta">
+            <span class="detail-pill">{project.data.year}</span>
+            {project.data.technologies.map((item: string) => <span class="detail-pill">{item}</span>)}
+          </div>
+          <p>{project.data.description}</p>
+        </div>
+      </div>
+      <div class="detail-media js-scale-fade">
+        <img src={project.data.image} alt={`${project.data.title} project screen`} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container detail-body">
+      <aside class="detail-sidebar">
+        <h2>Project info</h2>
+        <ul class="detail-list">
+          <li>{project.data.category}</li>
+          <li>{project.data.year}</li>
+          {project.data.technologies.map((item: string) => <li>{item}</li>)}
+        </ul>
+      </aside>
+      <div class="detail-content">
+        <Content />
+        <div class="next-row">
+          <a class="button-link" href="/projects/">Back to projects</a>
+          {
+            project.data.liveUrl ? (
+              <a class="button-link" href={project.data.liveUrl} target="_blank" rel="noreferrer">
+                Visit project
+              </a>
+            ) : (
+              <a class="button-link" href="mailto:hello@ariefdaffa.dev">Start a project</a>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>

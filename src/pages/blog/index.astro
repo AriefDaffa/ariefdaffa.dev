@@ -1,0 +1,72 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
+
+const description =
+  'Articles by Arief Daffa about media, practical habits, systems, and reflections from building for the web.';
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+const readingTime = (body?: string) =>
+  `${Math.max(1, Math.ceil((body ?? '').trim().split(/\s+/).filter(Boolean).length / 200))} min read`;
+---
+
+<PageLayout
+  title="Blog - Arief Daffa"
+  description={description}
+  pathname="/blog/"
+  marqueeItems={['Writing', 'Review', 'Notes', 'Systems', 'Ideas']}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'Blog',
+    name: 'Arief Daffa Blog',
+    description,
+    url: 'https://ariefdaffa.dev/blog/',
+  }}
+>
+  <section class="section page-hero">
+    <div class="container page-hero-inner">
+      <div>
+        <p class="page-kicker">Writing archive</p>
+        <h1 class="page-title">
+          Notes
+          <span
+            class="inline-image"
+            style="--image: url('https://picsum.photos/seed/blog-inline-writing/900/500')"
+          ></span>
+          worth keeping.
+        </h1>
+      </div>
+      <p class="page-summary">
+        A compact archive of articles about media, everyday systems, practical
+        habits, and the questions that stay in my head after building.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="writing-grid">
+        {
+          posts.map((post) => (
+            <a class="writing-card motion-reveal" href={`/blog/${post.id}/`} aria-label={`Read ${post.data.title}`}>
+              <div class="writing-meta">
+                <span>{formatDate(post.data.pubDate)}</span>
+                <span>{readingTime(post.body)}</span>
+              </div>
+              <div>
+                <h2>{post.data.title}</h2>
+                <p>{post.data.description}</p>
+              </div>
+              <span class="text-link">
+                Read article <span aria-hidden="true">→</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</PageLayout>

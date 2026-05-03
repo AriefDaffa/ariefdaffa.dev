@@ -1,0 +1,77 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getCollection } from 'astro:content';
+
+const description =
+  'Portfolio projects by Arief Daffa, covering web apps, product interfaces, search experiences, editorial websites, and API-driven frontend work.';
+const projects = (await getCollection('projects')).sort((a, b) => {
+  if (a.data.featured !== b.data.featured) return Number(b.data.featured) - Number(a.data.featured);
+  return b.data.year - a.data.year;
+});
+
+const cardSize = (index: number, featured: boolean) => {
+  if (featured) return 'feature';
+  return index % 3 === 0 ? 'medium' : 'small';
+};
+---
+
+<PageLayout
+  title="Projects - Arief Daffa"
+  description={description}
+  pathname="/projects/"
+  marqueeItems={['React', 'Next.js', 'Laravel', 'TypeScript', 'GSAP']}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 'Projects - Arief Daffa',
+    description,
+    url: 'https://ariefdaffa.dev/projects/',
+  }}
+>
+  <section class="section page-hero">
+    <div class="container page-hero-inner">
+      <div>
+        <p class="page-kicker">Selected archive</p>
+        <h1 class="page-title">
+          Projects
+          <span
+            class="inline-image"
+            style="--image: url('https://picsum.photos/seed/project-inline-work/900/500')"
+          ></span>
+          built with care.
+        </h1>
+      </div>
+      <p class="page-summary">
+        A wider look at interfaces, web apps, portals, and experiments I have
+        shaped across frontend, full-stack, and product-facing work.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="archive-grid">
+        {
+          projects.map((project) => (
+            <a
+              class={`archive-card ${cardSize(projects.indexOf(project), project.data.featured)} js-scale-fade`}
+              href={`/projects/${project.id}/`}
+              aria-label={`Open ${project.data.title} project detail`}
+            >
+              <img src={project.data.image} alt={`${project.data.title} project preview`} />
+              <div class="archive-copy">
+                <div class="archive-meta">
+                  <span>{project.data.year}</span>
+                  <span>{project.data.category}</span>
+                </div>
+                <h2>{project.data.title}</h2>
+                <p>{project.data.description}</p>
+              </div>
+              <span class="archive-arrow" aria-hidden="true">→</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</PageLayout>

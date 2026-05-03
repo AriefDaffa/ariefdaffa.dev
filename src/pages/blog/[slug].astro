@@ -1,0 +1,68 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const description = post.data.description;
+const formatDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+const readingTime = `${Math.max(1, Math.ceil((post.body ?? '').trim().split(/\s+/).filter(Boolean).length / 200))} min read`;
+---
+
+<PageLayout
+  title={`${post.data.title} - Arief Daffa Blog`}
+  description={description}
+  pathname={`/blog/${post.id}/`}
+  image={post.data.heroImage}
+  type="article"
+  publishedTime={post.data.pubDate.toISOString()}
+  marqueeItems={['Read', 'Think', 'Write', 'Reflect', 'Repeat']}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.data.title,
+    description,
+    image: post.data.heroImage,
+    datePublished: post.data.pubDate.toISOString(),
+    author: {
+      '@type': 'Person',
+      name: 'Arief Daffa',
+      url: 'https://ariefdaffa.dev/',
+    },
+    url: `https://ariefdaffa.dev/blog/${post.id}/`,
+  }}
+>
+  <section class="section detail-hero">
+    <div class="container article-shell">
+      <a class="text-link" href="/blog/">← All writing</a>
+      <p class="page-kicker">{formatDate(post.data.pubDate)} · {readingTime}</p>
+      <h1 class="detail-title">{post.data.title}</h1>
+      {
+        post.data.heroImage && (
+          <div class="detail-media js-scale-fade">
+            <img src={post.data.heroImage} alt={`${post.data.title} article cover`} />
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section">
+    <article class="container article-shell article-body">
+      <Content />
+      <div class="next-row">
+        <a class="button-link" href="/blog/">Back to writing</a>
+        <a class="button-link" href="mailto:hello@ariefdaffa.dev">Talk about an idea</a>
+      </div>
+    </article>
+  </section>
+</PageLayout>

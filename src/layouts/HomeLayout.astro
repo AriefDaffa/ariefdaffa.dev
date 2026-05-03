@@ -1,0 +1,52 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import '../styles/home.css';
+
+interface Props {
+  title: string;
+  description: string;
+  pathname: string;
+}
+
+const { title, description, pathname } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title={title}
+      description={description}
+      pathname={pathname}
+      schema={{
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: 'Arief Daffa',
+        url: 'https://ariefdaffa.dev/',
+        jobTitle: 'Web Developer',
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: 'Bekasi',
+          addressRegion: 'Jawa Barat',
+          addressCountry: 'ID',
+        },
+        sameAs: [
+          'https://github.com/AriefDaffa',
+          'https://instagram.com/ariefdaffa',
+          'https://www.linkedin.com/in/arief-daffa',
+        ],
+      }}
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+    ></script>
+  </head>
+  <body>
+    <slot />
+    <script defer src="/scripts/home.js"></script>
+  </body>
+</html>

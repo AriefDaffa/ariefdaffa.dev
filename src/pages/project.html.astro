@@ -1,0 +1,21 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Project - Arief Daffa"
+      description="Project detail by Arief Daffa."
+      pathname="/projects/"
+    />
+    <meta name="robots" content="noindex, follow" />
+  </head>
+  <body>
+    <p><a href="/projects/">Continue to projects</a></p>
+    <script is:inline>
+      const slug = new URLSearchParams(window.location.search).get('slug');
+      window.location.replace(slug ? `/projects/${slug}/` : '/projects/');
+    </script>
+  </body>
+</html>
