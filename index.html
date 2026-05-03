@@ -1039,6 +1039,7 @@
 
       .portfolio-card {
         position: relative;
+        display: block;
         overflow: hidden;
         border-radius: 24px;
         --reveal-radius: 24px;
@@ -2235,9 +2236,7 @@
             </div>
             <a
               class="portfolio-button"
-              href="https://ariefdaffa.dev/projects"
-              target="_blank"
-              rel="noreferrer"
+              href="projects.html"
             >
               See all
               <span aria-hidden="true">→</span>
@@ -2245,7 +2244,11 @@
           </div>
 
           <div class="portfolio-grid" aria-label="Featured portfolio projects">
-            <article class="portfolio-card small js-scale-fade">
+            <a
+              class="portfolio-card small js-scale-fade"
+              href="project.html?slug=byakuya"
+              aria-label="Open Byakuya project detail"
+            >
               <img
                 src="https://picsum.photos/seed/byakuya-chat-app/900/1100"
                 alt="Byakuya messaging app project preview"
@@ -2255,8 +2258,12 @@
                 <p>Next.js, Elysia.js, WebSocket</p>
               </div>
               <span class="portfolio-arrow" aria-hidden="true">→</span>
-            </article>
-            <article class="portfolio-card small js-scale-fade">
+            </a>
+            <a
+              class="portfolio-card small js-scale-fade"
+              href="project.html?slug=naya-living"
+              aria-label="Open Naya Living project detail"
+            >
               <img
                 src="https://picsum.photos/seed/naya-living-studio/900/1100"
                 alt="Naya Living design studio project preview"
@@ -2266,8 +2273,12 @@
                 <p>Laravel, Alpine.js, TailwindCSS</p>
               </div>
               <span class="portfolio-arrow" aria-hidden="true">→</span>
-            </article>
-            <article class="portfolio-card feature js-scale-fade">
+            </a>
+            <a
+              class="portfolio-card feature js-scale-fade"
+              href="project.html?slug=btn-properti"
+              aria-label="Open BTN Properti project detail"
+            >
               <img
                 src="https://picsum.photos/seed/btn-properti-portal/1500/900"
                 alt="BTN Properti web portal project preview"
@@ -2277,8 +2288,12 @@
                 <p>2025 · Next.js property search portal</p>
               </div>
               <span class="portfolio-arrow" aria-hidden="true">→</span>
-            </article>
-            <article class="portfolio-card wide js-scale-fade">
+            </a>
+            <a
+              class="portfolio-card wide js-scale-fade"
+              href="project.html?slug=hoshi"
+              aria-label="Open Hoshi project detail"
+            >
               <img
                 src="https://picsum.photos/seed/hoshi-streaming-platform/1500/900"
                 alt="Hoshi anime streaming platform project preview"
@@ -2288,8 +2303,12 @@
                 <p>React, TypeScript, shadcn/ui</p>
               </div>
               <span class="portfolio-arrow" aria-hidden="true">→</span>
-            </article>
-            <article class="portfolio-card small js-scale-fade">
+            </a>
+            <a
+              class="portfolio-card small js-scale-fade"
+              href="project.html?slug=iisf-website"
+              aria-label="Open IISF Website project detail"
+            >
               <img
                 src="https://picsum.photos/seed/isf-sustainability-forum/900/1100"
                 alt="Indonesia Sustainability Forum website project preview"
@@ -2299,8 +2318,12 @@
                 <p>Laravel, TailwindCSS</p>
               </div>
               <span class="portfolio-arrow" aria-hidden="true">→</span>
-            </article>
-            <article class="portfolio-card small js-scale-fade">
+            </a>
+            <a
+              class="portfolio-card small js-scale-fade"
+              href="project.html?slug=lagalio"
+              aria-label="Open Lagalio project detail"
+            >
               <img
                 src="https://picsum.photos/seed/lagalio-spotify-playlist/900/1100"
                 alt="Lagalio Spotify playlist project preview"
@@ -2310,7 +2333,7 @@
                 <p>React, TypeScript, Spotify API</p>
               </div>
               <span class="portfolio-arrow" aria-hidden="true">→</span>
-            </article>
+            </a>
           </div>
         </div>
       </section>
@@ -2345,9 +2368,7 @@
             </div>
             <a
               class="portfolio-button"
-              href="https://ariefdaffa.dev/blog"
-              target="_blank"
-              rel="noreferrer"
+              href="blog.html"
             >
               See all
               <span aria-hidden="true">→</span>
@@ -2369,9 +2390,7 @@
               </div>
               <a
                 class="blog-card-footer"
-                href="https://ariefdaffa.dev/blog/end-of-world"
-                target="_blank"
-                rel="noreferrer"
+                href="blog-post.html?slug=end-of-world"
               >
                 Read article <span aria-hidden="true">→</span>
               </a>
@@ -2391,9 +2410,7 @@
               </div>
               <a
                 class="blog-card-footer"
-                href="https://ariefdaffa.dev/blog/bocchi-the-rock-review"
-                target="_blank"
-                rel="noreferrer"
+                href="blog-post.html?slug=bocchi-the-rock-review"
               >
                 Read article <span aria-hidden="true">→</span>
               </a>
@@ -2413,9 +2430,7 @@
               </div>
               <a
                 class="blog-card-footer"
-                href="https://ariefdaffa.dev/blog/saving-money"
-                target="_blank"
-                rel="noreferrer"
+                href="blog-post.html?slug=saving-money"
               >
                 Read article <span aria-hidden="true">→</span>
               </a>
@@ -2476,15 +2491,15 @@
               <div class="footer-column">
                 <h3>Menu</h3>
                 <a href="#top">About</a>
-                <a href="#work">Projects</a>
+                <a href="projects.html">Projects</a>
                 <a href="#services">Services</a>
                 <a href="#timeline">Experience</a>
               </div>
 
               <div class="footer-column">
                 <h3>Work</h3>
-                <a href="#work">Portfolio</a>
-                <a href="#blog">Blog</a>
+                <a href="projects.html">Portfolio</a>
+                <a href="blog.html">Blog</a>
                 <a href="#services">Skills</a>
               </div>
 
@@ -2495,22 +2510,19 @@
                   href="https://github.com/AriefDaffa"
                   target="_blank"
                   rel="noreferrer"
-                  >GitHub</a
-                >
+                  >GitHub</a>
                 <a
                   href="https://www.linkedin.com/in/arief-daffa"
                   target="_blank"
                   rel="noreferrer"
-                  >LinkedIn</a
-                >
+                  >LinkedIn</a>
                 <a href="#contact">Start a project</a>
               </div>
             </div>
 
             <div class="footer-rule">
               <a class="footer-cta" href="mailto:hello@ariefdaffa.dev"
-                >Get Started</a
-              >
+                >Get Started</a>
             </div>
 
             <div class="footer-bottom">
