@@ -11,10 +11,26 @@ function hydrateMotion() {
     ease: 'power3.out',
   });
 
+  const heroTargets = gsap.utils.toArray(
+    '.page-hero .page-kicker, .page-hero .page-title, .page-hero .page-summary, .detail-hero .text-link, .detail-hero .page-kicker, .detail-hero .detail-title',
+  );
+
+  gsap.fromTo(
+    heroTargets,
+    { y: 24, opacity: 0 },
+    {
+      y: 0,
+      opacity: 1,
+      duration: 0.72,
+      stagger: 0.045,
+      ease: 'power2.out',
+    },
+  );
+
   if (reduceMotion) return;
 
   gsap.utils
-    .toArray('.page-kicker, .page-title, .page-summary, .detail-title, .detail-intro, .text-link')
+    .toArray('.detail-intro')
     .forEach((element) => {
       gsap.fromTo(
         element,
@@ -71,16 +87,20 @@ function hydrateMotion() {
     }
   });
 
-  gsap.to('.footer-wordmark', {
-    xPercent: -4,
-    ease: 'none',
-    scrollTrigger: {
-      trigger: '.site-footer',
-      start: 'top bottom',
-      end: 'bottom bottom',
-      scrub: true,
+  gsap.fromTo(
+    '.footer-wordmark',
+    { xPercent: -50 },
+    {
+      xPercent: -54,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.site-footer',
+        start: 'top bottom',
+        end: 'bottom bottom',
+        scrub: true,
+      },
     },
-  });
+  );
 }
 
 window.addEventListener('load', hydrateMotion);

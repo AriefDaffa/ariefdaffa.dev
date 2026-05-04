@@ -3,7 +3,7 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import { getCollection } from 'astro:content';
 
 const description =
-  'Articles by Arief Daffa about media, practical habits, systems, and reflections from building for the web.';
+  'Personal blog by Arief Daffa with essays, reviews, and notes about media, everyday systems, practical habits, and building for the web.';
 const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
@@ -29,19 +29,12 @@ const readingTime = (body?: string) =>
   <section class="section page-hero">
     <div class="container page-hero-inner">
       <div>
-        <p class="page-kicker">Writing archive</p>
-        <h1 class="page-title">
-          Notes
-          <span
-            class="inline-image"
-            style="--image: url('https://picsum.photos/seed/blog-inline-writing/900/500')"
-          ></span>
-          worth keeping.
-        </h1>
+        <p class="page-kicker">Blog</p>
+        <h1 class="page-title">Personal blog by Arief Daffa.</h1>
       </div>
       <p class="page-summary">
-        A compact archive of articles about media, everyday systems, practical
-        habits, and the questions that stay in my head after building.
+        Essays, reviews, and notes about media, everyday systems, practical
+        habits, and the ideas I keep returning to while building for the web.
       </p>
     </div>
   </section>

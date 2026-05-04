@@ -1,5 +1,6 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
+import SiteNav from '../components/SiteNav.astro';
 import '../styles/home.css';
 
 interface Props {
@@ -46,6 +47,7 @@ const { title, description, pathname } = Astro.props;
     ></script>
   </head>
   <body>
+    <SiteNav />
     <slot />
     <script defer src="/scripts/home.js"></script>
   </body>
