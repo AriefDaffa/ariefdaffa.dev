@@ -1,0 +1,113 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+
+const description = 'Career history and work experience of Arief Daffa, frontend developer based in Bekasi, Indonesia.';
+
+const experiences = [
+  {
+    period: '2025 – Present',
+    pill: '12 - 25',
+    role: 'Frontend Developer',
+    company: 'CODE.ID',
+    location: 'Jakarta',
+    description: 'Contract role building production web interfaces in a hybrid setup.',
+  },
+  {
+    period: '2023 – 2025',
+    pill: '08 - 23',
+    role: 'Frontend Web Developer',
+    company: 'PT FAN Integrasi Teknologi',
+    location: 'Indonesia',
+    description: 'Built React features, refactored production code, and improved app stability.',
+  },
+  {
+    period: '2022',
+    pill: '05 - 22',
+    role: 'Software Engineer Intern',
+    company: 'Tokopedia Web Platform',
+    location: 'Jakarta',
+    description: 'Worked on search components, debugging, tests, and performance improvement.',
+  },
+  {
+    period: '2022',
+    pill: '01 - 22',
+    role: 'Lead Frontend Developer',
+    company: 'KawanBantu',
+    location: 'Indonesia',
+    description: 'Led frontend workflow, introduced tooling, and maintained a user-facing application.',
+  },
+  {
+    period: '2021',
+    pill: '03 - 21',
+    role: 'Frontend Department',
+    company: 'BCC Faculty of Computer Science',
+    location: 'Brawijaya University',
+    description: 'Grew through community engineering practice.',
+  },
+];
+---
+
+<PageLayout
+  title="Experience - Arief Daffa"
+  description={description}
+  pathname="/experience/"
+  marqueeItems={['Work', 'Build', 'Ship', 'Grow', 'Repeat']}
+  schema={{
+    '@context': 'https://schema.org',
+    '@type': 'ProfilePage',
+    name: 'Experience - Arief Daffa',
+    description,
+    url: 'https://ariefdaffa.dev/experience/',
+  }}
+>
+  <section class="section page-hero">
+    <div class="container page-hero-inner">
+      <div>
+        <p class="page-kicker">Experience</p>
+        <h1 class="page-title">Work history.</h1>
+      </div>
+      <p class="page-summary">
+        Frontend-focused roles across product companies, startups, and internships.
+        Building interfaces from the ground up since 2021.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="timeline" aria-label="Career timeline">
+        {
+          experiences.map((exp, index) => (
+            <article class="timeline-item">
+              {index % 2 === 0 ? (
+                <>
+                  <div class="timeline-content left">
+                    <h3>{exp.role}</h3>
+                    <p class="timeline-company">{exp.company} &mdash; {exp.location}</p>
+                    <p>{exp.description}</p>
+                  </div>
+                  <div class="timeline-date">
+                    <span class="timeline-pill">{exp.pill}</span>
+                    <span class="timeline-line" aria-hidden="true"></span>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div class="timeline-date">
+                    <span class="timeline-pill">{exp.pill}</span>
+                    <span class="timeline-line" aria-hidden="true"></span>
+                  </div>
+                  <div class="timeline-content right">
+                    <h3>{exp.role}</h3>
+                    <p class="timeline-company">{exp.company} &mdash; {exp.location}</p>
+                    <p>{exp.description}</p>
+                  </div>
+                </>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</PageLayout>
