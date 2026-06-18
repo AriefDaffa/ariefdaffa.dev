@@ -1,9 +1,5 @@
 # ariefdaffa.dev
 
-Personal portfolio website for [Arief Daffa](https://ariefdaffa.dev), frontend developer based in Bekasi, Indonesia.
-
-Built with Astro 6, vanilla CSS, and GSAP for animations. Fully static, no framework overhead.
-
 ## Stack
 
 - **[Astro 6](https://astro.build)** — static site generator
