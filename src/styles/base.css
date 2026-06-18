@@ -147,6 +147,11 @@ img {
   background: rgba(255, 255, 255, 0.1);
 }
 
+.nav-links a[aria-current='page'] {
+  color: white;
+  background: rgba(255, 255, 255, 0.12);
+}
+
 .nav-cta {
   justify-self: end;
   display: inline-flex;

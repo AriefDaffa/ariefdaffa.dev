@@ -1,14 +1,26 @@
+---
+const { pathname } = Astro.url;
+
+// Mark a link active if the pathname starts with the link's path
+// Anchor-only links (/#work) are active when on the homepage
+const isActive = (href: string) => {
+  if (href.startsWith('/#')) return pathname === '/';
+  return pathname.startsWith(href);
+};
+---
+
 <div class="nav-wrap">
   <nav class="nav" aria-label="Main navigation">
     <a class="brand" href="/" aria-label="Arief Daffa home">
       <span class="brand-mark">AD</span>
+      <span>Arief Daffa</span>
     </a>
     <div class="nav-links">
-      <a href="/#work">Work</a>
-      <a href="/projects/">Projects</a>
-      <a href="/#timeline">Experience</a>
-      <a href="/blog/">Blog</a>
+      <a href="/#work" aria-current={isActive('/#work') ? 'page' : undefined}>Work</a>
+      <a href="/projects/" aria-current={isActive('/projects/') ? 'page' : undefined}>Projects</a>
+      <a href="/#timeline" aria-current={isActive('/#timeline') ? 'page' : undefined}>Experience</a>
+      <a href="/blog/" aria-current={isActive('/blog/') ? 'page' : undefined}>Blog</a>
     </div>
-    <a class="nav-cta" href="mailto:hello@ariefdaffa.dev">Let us talk</a>
+    <a class="nav-cta" href="mailto:hello@ariefdaffa.dev">Let&#8217;s talk</a>
   </nav>
 </div>
