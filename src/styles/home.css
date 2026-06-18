@@ -337,6 +337,7 @@
 
 .skill-showcase {
   background: var(--paper);
+  padding-top: 0;
 }
 
 .skills-layout {
@@ -643,7 +644,6 @@
 
 .timeline-section {
   background: #f6f7f3;
-  padding-top: 0;
   padding-bottom: 0;
 }
 
