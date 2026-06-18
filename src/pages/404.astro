@@ -1,0 +1,48 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import '../styles/pages.css';
+---
+
+<html lang="en">
+  <head>
+    <BaseHead
+      title="Page Not Found - Arief Daffa"
+      description="The page you are looking for does not exist."
+      pathname="/404/"
+    />
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+      integrity="sha512-7eHRwcbYkK4d9d/6tD8X8U6n6X6XqL8e6N6N6N6N6N6N6N6N6N6N6N6N6N6N6N6N6N6N6N6N6N6N6N=="
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <SiteNav />
+    <main class="site-shell">
+      <section class="section page-hero">
+        <div class="container">
+          <p class="page-kicker">404</p>
+          <h1 class="page-title">Page not found.</h1>
+          <p class="page-summary" style="margin-top: 2rem;">
+            That URL does not exist. Maybe it moved, or maybe it never existed.
+          </p>
+          <a
+            href="/"
+            class="button-link"
+            style="margin-top: 3rem; display: inline-flex;"
+          >
+            &larr; Back to home
+          </a>
+        </div>
+      </section>
+      <section class="section footer-section" id="contact">
+        <div class="container">
+          <SiteFooter />
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

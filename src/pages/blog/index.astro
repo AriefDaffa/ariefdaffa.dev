@@ -1,29 +1,26 @@
 ---
-import PageLayout from '../../layouts/PageLayout.astro';
-import { getCollection } from 'astro:content';
+import PageLayout from "../../layouts/PageLayout.astro";
+import { getCollection } from "astro:content";
+import { formatDate, readingTime } from "../../utils/format";
 
 const description =
-  'Personal blog by Arief Daffa with essays, reviews, and notes about media, everyday systems, practical habits, and building for the web.';
-const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  "Personal blog by Arief Daffa with essays, reviews, and notes about media, everyday systems, practical habits, and building for the web.";
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat('en-US', { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
-const readingTime = (body?: string) =>
-  `${Math.max(1, Math.ceil((body ?? '').trim().split(/\s+/).filter(Boolean).length / 200))} min read`;
 ---
 
 <PageLayout
   title="Blog - Arief Daffa"
   description={description}
   pathname="/blog/"
-  marqueeItems={['Writing', 'Review', 'Notes', 'Systems', 'Ideas']}
+  marqueeItems={["Writing", "Review", "Notes", "Systems", "Ideas"]}
   schema={{
-    '@context': 'https://schema.org',
-    '@type': 'Blog',
-    name: 'Arief Daffa Blog',
+    "@context": "https://schema.org",
+    "@type": "Blog",
+    name: "Arief Daffa Blog",
     description,
-    url: 'https://ariefdaffa.dev/blog/',
+    url: "https://ariefdaffa.dev/blog/",
   }}
 >
   <section class="section page-hero">

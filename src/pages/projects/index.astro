@@ -51,7 +51,14 @@ const cardSize = (index: number) => {
               href={`/projects/${project.id}/`}
               aria-label={`Open ${project.data.title} project detail`}
             >
-              <img src={project.data.image} alt={`${project.data.title} project preview`} />
+              <img
+                src={project.data.image}
+                alt={`${project.data.title} project preview`}
+                loading="lazy"
+                decoding="async"
+                width="800"
+                height="600"
+              />
               <div class="archive-copy">
                 <div class="archive-meta">
                   <span>{project.data.year}</span>

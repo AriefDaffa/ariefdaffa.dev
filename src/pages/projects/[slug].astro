@@ -51,7 +51,14 @@ const description = `${project.data.title} project by Arief Daffa. ${project.dat
         </div>
       </div>
       <div class="detail-media js-scale-fade">
-        <img src={project.data.image} alt={`${project.data.title} project screen`} />
+        <img
+                src={project.data.image}
+                alt={`${project.data.title} project screen`}
+                loading="lazy"
+                decoding="async"
+                width="1200"
+                height="750"
+              />
       </div>
     </div>
   </section>
