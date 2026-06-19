@@ -15,6 +15,51 @@ const isActive = (href: string) => pathname.startsWith(href);
       <a href="/blog/" aria-current={isActive('/blog/') ? 'page' : undefined}>Blog</a>
       <a href="/experience/" aria-current={isActive('/experience/') ? 'page' : undefined}>Experience</a>
     </div>
-    <a class="nav-cta" href="mailto:hello@ariefdaffa.dev">Let&#8217;s talk</a>
+    <div class="nav-right">
+      <a class="nav-cta" href="mailto:hello@ariefdaffa.dev">Let&#8217;s talk</a>
+      <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
   </nav>
 </div>
+
+<!-- Mobile menu drawer -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <nav aria-label="Mobile navigation">
+    <a href="/projects/" aria-current={isActive('/projects/') ? 'page' : undefined}>Projects</a>
+    <a href="/blog/" aria-current={isActive('/blog/') ? 'page' : undefined}>Blog</a>
+    <a href="/experience/" aria-current={isActive('/experience/') ? 'page' : undefined}>Experience</a>
+    <a class="mobile-menu-cta" href="mailto:hello@ariefdaffa.dev">Let&#8217;s talk</a>
+  </nav>
+</div>
+
+<script>
+  const btn = document.querySelector('.nav-hamburger') as HTMLButtonElement;
+  const menu = document.getElementById('mobile-menu') as HTMLElement;
+  const nav = document.querySelector('.nav') as HTMLElement;
+
+  btn?.addEventListener('click', () => {
+    const isOpen = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!isOpen));
+    menu.setAttribute('aria-hidden', String(isOpen));
+    menu.classList.toggle('is-open', !isOpen);
+    btn.classList.toggle('is-open', !isOpen);
+    nav.classList.toggle('menu-open', !isOpen);
+    document.body.style.overflow = isOpen ? '' : 'hidden';
+  });
+
+  // Close on link click
+  menu?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      btn.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      menu.classList.remove('is-open');
+      btn.classList.remove('is-open');
+      nav.classList.remove('menu-open');
+      document.body.style.overflow = '';
+    });
+  });
+</script>

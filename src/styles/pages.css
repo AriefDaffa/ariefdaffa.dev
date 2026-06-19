@@ -645,7 +645,7 @@
     top: 12px;
   }
 
-  .brand span {
+  .brand span:not(.brand-mark) {
     display: none;
   }
 
