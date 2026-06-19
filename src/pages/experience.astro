@@ -6,44 +6,91 @@ const description = 'Career history and work experience of Arief Daffa, frontend
 const experiences = [
   {
     period: '2025 – Present',
-    pill: '12 - 25',
+    start: 'Dec 2025',
     role: 'Frontend Developer',
     company: 'CODE.ID',
     location: 'Jakarta',
-    description: 'Contract role building production web interfaces in a hybrid setup.',
+    type: 'Contract',
+    current: true,
+    description: 'Contract role building production web interfaces in a hybrid setup. Shipping features across multiple client products with a focus on performance and maintainability.',
+    highlights: [
+      'Building production-grade interfaces for client products',
+      'Working in a hybrid team across multiple concurrent projects',
+      'Frontend architecture decisions and code reviews',
+    ],
+    stack: ['React', 'TypeScript', 'Next.js', 'TailwindCSS'],
   },
   {
     period: '2023 – 2025',
-    pill: '08 - 23',
+    start: 'Aug 2023',
     role: 'Frontend Web Developer',
     company: 'PT FAN Integrasi Teknologi',
     location: 'Indonesia',
-    description: 'Built React features, refactored production code, and improved app stability.',
+    type: 'Full-time',
+    current: false,
+    description: 'Built and maintained React features across production applications. Refactored legacy code, improved app stability, and introduced better patterns across the frontend codebase.',
+    highlights: [
+      'Rebuilt core UI components used across 3+ products',
+      'Reduced technical debt through systematic refactoring',
+      'Improved app stability and load performance',
+    ],
+    stack: ['React', 'TypeScript', 'Redux', 'REST API'],
   },
   {
     period: '2022',
-    pill: '05 - 22',
+    start: 'May 2022',
     role: 'Software Engineer Intern',
     company: 'Tokopedia Web Platform',
     location: 'Jakarta',
-    description: 'Worked on search components, debugging, tests, and performance improvement.',
+    type: 'Internship',
+    current: false,
+    description: "Worked on search components within Tokopedia's web platform team. Contributed to debugging, unit testing, and frontend performance improvements at scale.",
+    highlights: [
+      'Contributed to search UI components used by millions of users',
+      'Wrote unit tests and improved test coverage',
+      'Optimised render performance on high-traffic pages',
+    ],
+    stack: ['React', 'JavaScript', 'Jest', 'GraphQL'],
   },
   {
     period: '2022',
-    pill: '01 - 22',
+    start: 'Jan 2022',
     role: 'Lead Frontend Developer',
     company: 'KawanBantu',
     location: 'Indonesia',
-    description: 'Led frontend workflow, introduced tooling, and maintained a user-facing application.',
+    type: 'Part-time',
+    current: false,
+    description: 'Led the frontend workflow for a user-facing application. Introduced tooling standards, defined component architecture, and maintained the product through active development.',
+    highlights: [
+      'Led a small frontend team and defined coding standards',
+      'Introduced linting, formatting, and CI tooling',
+      'Owned the component architecture end-to-end',
+    ],
+    stack: ['React', 'JavaScript', 'CSS Modules'],
   },
   {
     period: '2021',
-    pill: '03 - 21',
+    start: 'Mar 2021',
     role: 'Frontend Department',
     company: 'BCC Faculty of Computer Science',
     location: 'Brawijaya University',
-    description: 'Grew through community engineering practice.',
+    type: 'Organisation',
+    current: false,
+    description: 'Member of the frontend department at BCC, a software engineering community at Brawijaya University. Grew through collaborative engineering practice, workshops, and real-world projects.',
+    highlights: [
+      'Participated in community-led engineering workshops',
+      'Collaborated on internal tooling and web projects',
+      'Mentored by senior students, later mentored juniors',
+    ],
+    stack: ['HTML', 'CSS', 'JavaScript', 'React'],
   },
+];
+
+const stats = [
+  { value: '4+', label: 'Years building' },
+  { value: '4', label: 'Companies' },
+  { value: '10+', label: 'Projects shipped' },
+  { value: '1', label: 'Big tech internship' },
 ];
 ---
 
@@ -60,54 +107,104 @@ const experiences = [
     url: 'https://ariefdaffa.dev/experience/',
   }}
 >
-  <section class="section page-hero">
-    <div class="container page-hero-inner">
-      <div>
-        <p class="page-kicker">Experience</p>
-        <h1 class="page-title">Work history.</h1>
+
+  <!-- ── Hero ── -->
+  <section class="section exp-hero">
+    <div class="container">
+      <p class="page-kicker">Experience</p>
+      <div class="exp-hero-grid">
+        <h1 class="exp-hero-title">Work<br/>history.</h1>
+        <div class="exp-hero-right">
+          <div class="exp-current-card">
+            <span class="exp-current-badge">Currently</span>
+            <p class="exp-current-company">CODE.ID</p>
+            <p class="exp-current-role">Frontend Developer</p>
+            <p class="exp-current-since">Since Dec 2025 · Jakarta</p>
+          </div>
+          <p class="exp-hero-summary">
+            Frontend-focused roles across product companies, startups, and internships.
+            Building interfaces from the ground up since 2021.
+          </p>
+        </div>
       </div>
-      <p class="page-summary">
-        Frontend-focused roles across product companies, startups, and internships.
-        Building interfaces from the ground up since 2021.
-      </p>
+
+      <!-- Stats strip -->
+      <div class="exp-stats">
+        {stats.map(s => (
+          <div class="exp-stat">
+            <span class="exp-stat-value">{s.value}</span>
+            <span class="exp-stat-label">{s.label}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- ── Timeline ── -->
+  <section class="section exp-timeline-section">
     <div class="container">
-      <div class="timeline" aria-label="Career timeline">
-        {
-          experiences.map((exp, index) => (
-            <article class="timeline-item">
-              {index % 2 === 0 ? (
-                <>
-                  <div class="timeline-content left">
-                    <h3>{exp.role}</h3>
-                    <p class="timeline-company">{exp.company} &mdash; {exp.location}</p>
-                    <p>{exp.description}</p>
-                  </div>
-                  <div class="timeline-date">
-                    <span class="timeline-pill">{exp.pill}</span>
-                    <span class="timeline-line" aria-hidden="true"></span>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div class="timeline-date">
-                    <span class="timeline-pill">{exp.pill}</span>
-                    <span class="timeline-line" aria-hidden="true"></span>
-                  </div>
-                  <div class="timeline-content right">
-                    <h3>{exp.role}</h3>
-                    <p class="timeline-company">{exp.company} &mdash; {exp.location}</p>
-                    <p>{exp.description}</p>
-                  </div>
-                </>
-              )}
-            </article>
-          ))
-        }
+      <div class="exp-timeline" aria-label="Career timeline">
+        {experiences.map((exp) => (
+          <article class={`exp-item${exp.current ? ' exp-item--current' : ''} js-exp-reveal`}>
+            <div class="exp-item-spine" aria-hidden="true">
+              <span class="exp-item-dot"></span>
+            </div>
+            <div class="exp-item-body">
+              <header class="exp-item-header">
+                <div class="exp-item-meta">
+                  <span class="exp-type-pill">{exp.type}</span>
+                  <span class="exp-date">{exp.start}</span>
+                </div>
+                <h2 class="exp-role">{exp.role}</h2>
+                <p class="exp-company">{exp.company} <span class="exp-location">· {exp.location}</span></p>
+              </header>
+              <p class="exp-description">{exp.description}</p>
+              <ul class="exp-highlights">
+                {exp.highlights.map(h => (
+                  <li>{h}</li>
+                ))}
+              </ul>
+              <div class="exp-stack">
+                {exp.stack.map(tech => (
+                  <span class="exp-tech">{tech}</span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
+
 </PageLayout>
+
+<script>
+  import { gsap } from 'https://cdn.skypack.dev/gsap';
+  import { ScrollTrigger } from 'https://cdn.skypack.dev/gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  const items = document.querySelectorAll('.js-exp-reveal');
+  items.forEach((el, i) => {
+    gsap.fromTo(
+      el,
+      { opacity: 0, y: 48 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.72,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+        },
+      }
+    );
+  });
+
+  // Animate stats on load
+  gsap.fromTo(
+    '.exp-stat',
+    { opacity: 0, y: 24 },
+    { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.1, delay: 0.3 }
+  );
+</script>
